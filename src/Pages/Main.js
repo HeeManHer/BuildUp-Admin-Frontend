@@ -1,8 +1,16 @@
+import AdminAuthorityList from "./AdminAuthorityList";
+import AdminDashBoard from "./AdminDashBoard";
+import AdminProjectList from "./AdminProjectList";
+import AdminUserList from "./AdminUserList";
+
 function Main() {
 
     return (
         <>
-            <h1>여기다 메인페이지 작성</h1>
+            {/* <AdminDashBoard /> */}
+            {/* <AdminProjectList /> */}
+            {/* <AdminUserList /> */}
+            <AdminAuthorityList />
         </>
     );
 }
