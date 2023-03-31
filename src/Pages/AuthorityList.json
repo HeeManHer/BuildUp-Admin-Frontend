@@ -1,5 +1,6 @@
 [
     {
+        "no": 1,
         "name": "PM",
         "project": {
             "c": true,
@@ -27,7 +28,64 @@
         }
     },
     {
+        "no": 2,
         "name": "팀원",
+        "project": {
+            "c": false,
+            "r": true,
+            "u": false,
+            "d": false
+        },
+        "backlog": {
+            "c": false,
+            "r": true,
+            "u": false,
+            "d": false
+        },
+        "issue": {
+            "c": false,
+            "r": true,
+            "u": false,
+            "d": false
+        },
+        "sprint": {
+            "c": false,
+            "r": true,
+            "u": false,
+            "d": false
+        }
+    },
+    {
+        "no": 3,
+        "name": "사수",
+        "project": {
+            "c": false,
+            "r": true,
+            "u": false,
+            "d": false
+        },
+        "backlog": {
+            "c": false,
+            "r": true,
+            "u": false,
+            "d": false
+        },
+        "issue": {
+            "c": false,
+            "r": true,
+            "u": false,
+            "d": false
+        },
+        "sprint": {
+            "c": false,
+            "r": true,
+            "u": false,
+            "d": false
+        }
+    },
+    {
+        "no": 4,
+        "name": "부사수",
         "project": {
             "c": false,
             "r": true,
