@@ -7,9 +7,9 @@ function Main() {
 
     return (
         <>
-            {/* <AdminDashBoard /> */}
-            {/* <AdminProjectList /> */}
-            {/* <AdminUserList /> */}
+            <AdminDashBoard />
+            <AdminProjectList />
+            <AdminUserList />
             <AdminAuthorityList />
         </>
     );
