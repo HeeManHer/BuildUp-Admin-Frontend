@@ -1,6 +1,12 @@
-import { SET_USER, CHANGE_USER, SAVE_USER } from "../moduels/user";
-import User from '../Pages/User.json';
+import { GET_USER, SET_USER, CHANGE_USER, SAVE_USER, DELETE_USER, SEARCH_USER } from "../moduels/user";
+import User from '../data/User.json';
 
+export function getUserList() {
+
+    return function (dispatch, getState) {
+        dispatch({ type: GET_USER });
+    }
+}
 export function setUserList() {
 
     return function (dispatch, getState) {
@@ -18,5 +24,19 @@ export function saveUserList(user) {
 
     return function (dispatch, getState) {
         dispatch({ type: SAVE_USER, payload: user });
+    }
+}
+
+export function deleteUserList(user) {
+
+    return function (dispatch, getState) {
+        dispatch({ type: DELETE_USER, payload: user });
+    }
+}
+
+export function searchUserList(user) {
+
+    return function (dispatch, getState) {
+        dispatch({ type: SEARCH_USER, payload: user });
     }
 }
