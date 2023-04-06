@@ -5,7 +5,7 @@ import AdminAuthorityList from "./Pages/AdminAuthorityList";
 import AdminDashBoard from "./Pages/AdminDashBoard";
 import AdminProjectList from "./Pages/AdminProjectList";
 import AdminUserList from "./Pages/AdminUserList";
-import Create from "./Pages/Create";
+import UserCreate from "./components/items/UserCreate";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
           <Route path="projectlist" element={<AdminProjectList />} />
           <Route path="userlist">
             <Route index element={<AdminUserList />} />
-            <Route path="create" element={<Create />} />
+            <Route path="create" element={<UserCreate />} />
           </Route>
           <Route path="authority" element={<AdminAuthorityList />} />
         </Route>

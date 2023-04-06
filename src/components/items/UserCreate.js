@@ -2,39 +2,35 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import '../css/UserList.css';
+import '../../css/admin.css';
 
-import { setUserList, saveUserList } from '../apis/UserListAPI';
-import { setAuthorityList } from '../apis/AuthorityListAPI';
+import { saveUserList } from '../../apis/UserListAPI';
+import { setAuthorityList } from '../../apis/AuthorityListAPI';
 
-function Create() {
+function UserCreate() {
+
+    const authorityList = useSelector(state => state.authorityReducer);
 
     const [userInfo, setUserInfo] = useState({
-        name: 'doby',
-        no: 132456,
-        email: 'doby@hogu.com',
+        name: '',
+        no: 0,
+        email: '',
         authority: ''
     });
 
-    const authorityList = useSelector(state => state.authorityReducer);
-    const userList = useSelector(state => state.userReducer);
 
     const dispatch = useDispatch();
 
     useEffect(
         () => {
-            dispatch(setUserList());
             dispatch(setAuthorityList());
+            setUserInfo({ ...userInfo, authority: authorityList[0].name });
         },
         []
     );
-    console.log(userList);
 
     const onSaveAuthority = () => {
-
         dispatch(saveUserList(userInfo));
-
-        console.log(userList);
     }
 
     return (
@@ -44,7 +40,7 @@ function Create() {
                 <h1 className="h3 mb-0 text-gray-800">사원 등록</h1>
             </div>
 
-            <div className="admin-user">
+            <div className="admin">
 
                 <form>
 
@@ -94,4 +90,4 @@ function Create() {
     );
 }
 
-export default Create;
+export default UserCreate;

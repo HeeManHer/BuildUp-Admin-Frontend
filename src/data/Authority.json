@@ -1,0 +1,82 @@
+[
+    {
+        "no": 1,
+        "state": "c",
+        "type": 1
+    },
+    {
+        "no": 2,
+        "state": "r",
+        "type": 1
+    },
+    {
+        "no": 3,
+        "state": "u",
+        "type": 1
+    },
+    {
+        "no": 4,
+        "state": "d",
+        "type": 1
+    },
+    {
+        "no": 5,
+        "state": "c",
+        "type": 2
+    },
+    {
+        "no": 6,
+        "state": "r",
+        "type": 2
+    },
+    {
+        "no": 7,
+        "state": "u",
+        "type": 2
+    },
+    {
+        "no": 8,
+        "state": "d",
+        "type": 2
+    },
+    {
+        "no": 9,
+        "state": "c",
+        "type": 3
+    },
+    {
+        "no": 10,
+        "state": "r",
+        "type": 3
+    },
+    {
+        "no": 11,
+        "state": "u",
+        "type": 3
+    },
+    {
+        "no": 12,
+        "state": "d",
+        "type": 3
+    },
+    {
+        "no": 13,
+        "state": "c",
+        "type": 4
+    },
+    {
+        "no": 14,
+        "state": "r",
+        "type": 4
+    },
+    {
+        "no": 15,
+        "state": "u",
+        "type": 4
+    },
+    {
+        "no": 16,
+        "state": "d",
+        "type": 4
+    }
+]
