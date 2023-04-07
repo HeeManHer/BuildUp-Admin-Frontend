@@ -1,20 +1,20 @@
 function DashboardCard({ category }) {
 
     let card_style = 'card shadow h-100 py-2';
-    let test_style = 'text-lg font-weight-bold text-uppercase mb-1';
+    let text_style = 'text-lg font-weight-bold text-uppercase mb-1';
 
     switch (category) {
         case '백로그':
             card_style += ' border-left-primary';
-            test_style += ' text-primary';
+            text_style += ' text-primary';
             break;
         case '이슈':
             card_style += ' border-left-success';
-            test_style += ' text-success';
+            text_style += ' text-success';
             break;
         case '스프린트':
             card_style += ' border-left-info';
-            test_style += ' text-info';
+            text_style += ' text-info';
             break;
     }
 
@@ -24,7 +24,7 @@ function DashboardCard({ category }) {
                 <div className="card-body">
                     <div className="row no-gutters align-items-center">
                         <div className="col mr-2">
-                            <div className={test_style}>
+                            <div className={text_style}>
                                 <table width="100%">
                                     <thead>
                                         <tr className="text-center">

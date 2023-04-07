@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import '../css/admin.css';
 
-import { setAuthorityList, createAuthorityList, saveAuthorityList, deleteAuthorityList } from '../apis/AuthorityListAPI';
+import { getAuthorityList, setAuthorityList, createAuthorityList, saveAuthorityList, deleteAuthorityList } from '../apis/AuthorityListAPI';
 import Title from '../components/commons/Title';
 
 
 function AdminAuthorityList() {
 
     const [deleteAuthority, setDeleteAuthority] = useState([]);
+    const [page, setPage] = useState(1);
     const [value, setValue] = useState('');
     const [update, setUpdate] = useState(null);
 
@@ -19,12 +20,19 @@ function AdminAuthorityList() {
 
     useEffect(
         () => {
-            dispatch(setAuthorityList());
+            if (authorityList.length === 0) {
+                dispatch(setAuthorityList());
+            } else {
+                dispatch(getAuthorityList());
+            }
         },
         []
     )
 
     const createAuthority = () => {
+        if (update !== null) return;
+
+        setUpdate(authorityList.length + 1);
         dispatch(createAuthorityList(authorityList.length + 1));
     };
 
@@ -32,22 +40,22 @@ function AdminAuthorityList() {
         dispatch(setAuthorityList());
     }
 
-    const updateKeyDown = (no, event) => {
+    const updateKeyDown = (event, authority) => {
         if (event.key !== 'Enter') return;
 
-        const newList = [...props.list];
-        newList[no].content = value;
+        authority.name = value;
 
         setUpdate(null);
-        props.updateList(newList);
+        setValue('');
+        dispatch(saveAuthorityList(authority));
     };
 
     const saveAuthority = () => {
         dispatch(saveAuthorityList());
     }
 
-    const handleClick = (index, event) => {
-        setValue(event.target.innerHTML);
+    const handleClick = (index, e) => {
+        setValue(e.target.innerHTML);
         setUpdate(index);
     };
 
@@ -63,6 +71,16 @@ function AdminAuthorityList() {
         dispatch(deleteAuthorityList(deleteAuthority));
     }
 
+    const nextPage = () => {
+        if (authorityList.length / 5 >= page) {
+            setPage(page + 1);
+        }
+    }
+    const prevPage = () => {
+        if (page - 1 > 0) {
+            setPage(page - 1);
+        }
+    }
     let key = 0;
     return (
         <div className="container-fluid">
@@ -71,9 +89,9 @@ function AdminAuthorityList() {
 
             <div className="admin">
                 <div className='button'>
-                    <button type="button" className='btn btn-success' onClick={saveAuthority}>저장</button>
-                    <button type="button" className='btn btn-warning' onClick={resetAuthority}>취소</button>
-                    <button type="button" className='btn btn-danger' onClick={onClickDeleteBtn}>삭제</button>
+                    <button type="button" className='btn btn-primary'>저장</button>
+                    <button type="button" className='btn btn-primary' onClick={resetAuthority}>취소</button>
+                    <button type="button" className='btn btn-primary' onClick={onClickDeleteBtn}>삭제</button>
                 </div>
 
                 <table className="admin-table" width="90%">
@@ -89,6 +107,7 @@ function AdminAuthorityList() {
                     </thead>
                     <tbody>
                         {authorityList.map(authority =>
+                            (authorityList.indexOf(authority) >= 6 * (page - 1) && authorityList.indexOf(authority) < 6 * page) &&
                             <tr key={authority.no}>
                                 <td>
                                     <input
@@ -100,15 +119,16 @@ function AdminAuthorityList() {
                                     />
                                 </td>
                                 <td>
-                                    {update === authority.no ?
-                                        <span onClick={(event) => handleClick(key, event)}>{authority.name}</span>
-                                        :
+                                    {update === authority.no || authority.name === '' ?
                                         <input
                                             type='text'
                                             value={value}
                                             onChange={e => setValue(e.target.value)}
-                                            onKeyDown={(e) => updateKeyDown(key, e)}
-                                        />}
+                                            onKeyDown={(e) => updateKeyDown(e, authority)}
+                                        />
+                                        :
+                                        <span onClick={(e) => handleClick(authority.no, e)}>{authority.name}</span>
+                                    }
                                 </td>
                                 {authority.auth.map(auth => (
                                     <td key={key++}>
@@ -124,16 +144,22 @@ function AdminAuthorityList() {
                                 ))}
                             </tr>
                         )}
-                        <tr>
-                            <td></td>
-                            <td><button type="button" className='btn-sm btn-primary' onClick={createAuthority}>등록</button></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                        {update == null &&
+                            <tr>
+                                <td></td>
+                                <td><button type="button" className='btn-sm btn-primary' onClick={createAuthority}>등록</button></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
+                <div className='button'>
+                    <button className='btn btn-primary' onClick={prevPage}>이전</button>
+                    <button className='btn btn-primary' onClick={nextPage}>다음</button>
+                </div>
             </div>
         </div>
     );

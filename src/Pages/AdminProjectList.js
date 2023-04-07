@@ -68,9 +68,9 @@ function AdminProjectList() {
                         }
                     </tbody>
                 </table>
-                <div>
-                    <button onClick={prevPage}>이전</button>
-                    <button onClick={nextPage}>다음</button>
+                <div className='button'>
+                    <button className='btn btn-primary' onClick={prevPage}>이전</button>
+                    <button className='btn btn-primary' onClick={nextPage}>다음</button>
                 </div>
             </div>
         </div>

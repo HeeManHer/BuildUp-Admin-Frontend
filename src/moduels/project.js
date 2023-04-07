@@ -2,6 +2,7 @@ import { createActions, handleActions } from 'redux-actions';
 
 const projectList = [];
 
+export const GET_PROJECT = 'user/GET_PROJECT';
 export const SET_PROJECT = 'user/SET_PROJECT';
 export const SEARCH_PROJECT = 'user/SEARCH_PROJECT';
 
