@@ -5,7 +5,7 @@ import Chart from 'chart.js/auto';
 import { Pie } from 'react-chartjs-2';
 
 import { setUserList, getUserList } from '../../apis/UserListAPI';
-import { setAuthorityList } from '../../apis/AuthorityListAPI';
+import { setAuthorityList, getAuthorityList } from '../../apis/AuthorityListAPI';
 
 function DashboardChart() {
 
@@ -21,7 +21,12 @@ function DashboardChart() {
             } else {
                 dispatch(getUserList());
             }
-            dispatch(setAuthorityList());
+
+            if (authorityList.length === 0) {
+                dispatch(setAuthorityList());
+            } else {
+                dispatch(getAuthorityList());
+            }
         },
         []
     );
@@ -48,8 +53,8 @@ function DashboardChart() {
                 type: 'pie',
                 label: '사원 현황',
                 data: authorityCnt,
-                backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#E7DD00'],
-                hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf', '#f6c23e'],
+                backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b'],
+                hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf', '#f4b619', '#e02d1b'],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
             }
         ],

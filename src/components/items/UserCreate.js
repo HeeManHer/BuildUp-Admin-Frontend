@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import '../../css/admin.css';
 
 import { saveUserList } from '../../apis/UserListAPI';
-import { setAuthorityList } from '../../apis/AuthorityListAPI';
+import { getAuthorityList } from '../../apis/AuthorityListAPI';
 
 function UserCreate() {
 
@@ -23,8 +23,13 @@ function UserCreate() {
 
     useEffect(
         () => {
-            dispatch(setAuthorityList());
-            setUserInfo({ ...userInfo, authority: authorityList[0].name });
+            dispatch(getAuthorityList());
+            setUserInfo({
+                name: '',
+                no: 0,
+                email: '',
+                authority: authorityList[0].name
+            });
         },
         []
     );

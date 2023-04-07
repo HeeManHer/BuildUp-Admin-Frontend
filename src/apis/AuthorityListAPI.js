@@ -1,6 +1,14 @@
-import { SET_AUTHORITY, CREATE_AUTHORITY, SAVE_AUTHORITY, DELETE_AUTHORITY } from "../moduels/authority";
+import { GET_AUTHORITY, SET_AUTHORITY, CREATE_AUTHORITY, SAVE_AUTHORITY, DELETE_AUTHORITY } from "../moduels/authority";
 import AuthorityList from '../data/AuthorityList.json';
 
+
+
+export function getAuthorityList() {
+
+    return function (dispatch, getState) {
+        dispatch({ type: GET_AUTHORITY });
+    }
+}
 export function setAuthorityList() {
 
     return function (dispatch, getState) {
@@ -8,10 +16,10 @@ export function setAuthorityList() {
     }
 }
 
-export function saveAuthorityList() {
+export function saveAuthorityList(authority) {
 
     return function (dispatch, getState) {
-        dispatch({ type: SAVE_AUTHORITY, payload: AuthorityList });
+        dispatch({ type: SAVE_AUTHORITY, payload: authority });
     }
 }
 
@@ -19,43 +27,43 @@ export function createAuthorityList(no) {
 
 
     const newAuthority = {
-        no: 1,
-        name: "PM",
+        no: no,
+        name: "",
         auth: [
             {
                 type: "프로젝트",
                 state: [
-                    "c",
-                    "r",
-                    "u",
-                    "d"
+                    "",
+                    "",
+                    "",
+                    ""
                 ]
             },
             {
                 type: "백로그",
                 state: [
-                    "c",
-                    "r",
-                    "u",
-                    "d"
+                    "",
+                    "",
+                    "",
+                    ""
                 ]
             },
             {
                 type: "스프린트",
                 state: [
-                    "c",
-                    "r",
-                    "u",
-                    "d"
+                    "",
+                    "",
+                    "",
+                    ""
                 ]
             },
             {
                 type: "이슈",
                 state: [
-                    "c",
-                    "r",
-                    "u",
-                    "d"
+                    "",
+                    "",
+                    "",
+                    ""
                 ]
             }
         ]

@@ -1,4 +1,4 @@
-import { SET_PROJECT, SEARCH_PROJECT } from "../moduels/project";
+import {  SET_PROJECT, SEARCH_PROJECT } from "../moduels/project";
 import Project from '../data/ProjectList.json';
 
 export function setProjectList() {

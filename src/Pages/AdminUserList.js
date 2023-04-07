@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import '../css/admin.css';
 
 import { getUserList, setUserList, changeUserList, deleteUserList } from '../apis/UserListAPI';
-import { setAuthorityList } from '../apis/AuthorityListAPI';
+import { setAuthorityList, getAuthorityList } from '../apis/AuthorityListAPI';
 import Search from '../components/commons/Search';
 import Title from '../components/commons/Title';
 
@@ -14,8 +14,8 @@ function AdminUserList() {
     const [deleteUser, setDeleteUser] = useState([]);
     const [page, setPage] = useState(1);
 
-    const authorityList = useSelector(state => state.authorityReducer);
     const userList = useSelector(state => state.userReducer);
+    const authorityList = useSelector(state => state.authorityReducer);
 
     const dispatch = useDispatch();
 
@@ -26,7 +26,12 @@ function AdminUserList() {
             } else {
                 dispatch(getUserList());
             }
-            dispatch(setAuthorityList());
+
+            if (authorityList.length === 0) {
+                dispatch(setAuthorityList());
+            } else {
+                dispatch(getAuthorityList());
+            }
         },
         []
     );
@@ -86,9 +91,9 @@ function AdminUserList() {
                     <NavLink to="./create">
                         <button type="button" className='btn btn-primary' >등록</button>
                     </NavLink>
-                    <button type="button" className='btn btn-success' onClick={onSaveUser}>저장</button>
-                    <button type="button" className='btn btn-warning' onClick={onUndoUser} >취소</button>
-                    <button type="button" className='btn btn-danger' onClick={onClickDeleteBtn}>삭제</button>
+                    <button type="button" className='btn btn-primary' onClick={onSaveUser}>저장</button>
+                    <button type="button" className='btn btn-primary' onClick={onUndoUser} >취소</button>
+                    <button type="button" className='btn btn-primary' onClick={onClickDeleteBtn}>삭제</button>
                 </div>
 
                 <table className="admin-table" width="90%">
@@ -128,9 +133,9 @@ function AdminUserList() {
                         )}
                     </tbody>
                 </table>
-                <div>
-                    <button onClick={prevPage}>이전</button>
-                    <button onClick={nextPage}>다음</button>
+                <div className='button'>
+                    <button className='btn btn-primary' onClick={prevPage}>이전</button>
+                    <button className='btn btn-primary' onClick={nextPage}>다음</button>
                 </div>
             </div>
         </div>
