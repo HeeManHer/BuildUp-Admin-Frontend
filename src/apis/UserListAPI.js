@@ -3,16 +3,42 @@ import User from '../data/User.json';
 
 export function getUserList() {
 
-    return function (dispatch, getState) {
-        dispatch({ type: GET_USER });
+    const requestUrl = "http://localhost:8888/api/v1/users";
+
+    return async function (dispatch, getState) {
+        const result = await fetch(requestUrl, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+            }
+        }).then(res => res.json());
+
+
+        dispatch({ type: SET_USER, payload: result });
     }
 }
+
 export function setUserList() {
 
-    return function (dispatch, getState) {
-        dispatch({ type: SET_USER, payload: User });
+    const requestUrl = "http://localhost:8888/api/v1/users";
+
+    return async function (dispatch, getState) {
+
+        const result = await fetch(requestUrl, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+            }
+        }).then(res => res.json());
+
+        console.log(result);
+
+        dispatch({ type: SET_USER, payload: result });
     }
 }
+
 export function changeUserList(user) {
 
     return function (dispatch, getState) {
@@ -22,7 +48,19 @@ export function changeUserList(user) {
 
 export function saveUserList(user) {
 
-    return function (dispatch, getState) {
+    const requestUrl = "http://localhost:8888/api/v1/users";
+
+    return async function (dispatch, getState) {
+
+        const result = await fetch(requestUrl, {
+            method: "POST",
+            headers: {
+                "Accept": "*/*"
+            }
+        }).then(res => res.json());
+
+        console.log(result);
+
         dispatch({ type: SAVE_USER, payload: user });
     }
 }
