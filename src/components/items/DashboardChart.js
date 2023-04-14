@@ -5,46 +5,23 @@ import Chart from 'chart.js/auto';
 import { Pie } from 'react-chartjs-2';
 
 import { setUserList, getUserList } from '../../apis/UserListAPI';
-import { setAuthorityList, getAuthorityList } from '../../apis/AuthorityListAPI';
+import { getDashAuth } from '../../apis/DashboardAPI';
 
 function DashboardChart() {
 
-    const authorityList = useSelector(state => state.authorityReducer);
-    const userList = useSelector(state => state.userReducer);
+    const authRole = useSelector(state => state.roleReducer);
 
     const dispatch = useDispatch();
 
     useEffect(
         () => {
-            if (userList.length === 0) {
-                dispatch(setUserList());
-            } else {
-                dispatch(getUserList());
-            }
-
-            if (authorityList.length === 0) {
-                dispatch(setAuthorityList());
-            } else {
-                dispatch(getAuthorityList());
-            }
+            dispatch(getDashAuth());
         },
         []
     );
 
-    const userAuthority = authorityList.map(authority => authority.name);
-
-    const authorityCnt = [];
-
-    for (let i = 0; i < userAuthority.length; i++) {
-        let cnt = 0;
-        for (let k = 0; k < userList.length; k++) {
-            if (userList[k].authority === userAuthority[i]) {
-                cnt++;
-            }
-        }
-
-        authorityCnt.push(cnt);
-    }
+    const userAuthority = authRole.map(authority => authority.name);
+    const authorityCnt = authRole.map(authority => authority.count);
 
     const data = {
         labels: userAuthority,

@@ -1,41 +1,30 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import '../../css/admin.css';
 
-import { saveUserList } from '../../apis/UserListAPI';
-import { getAuthorityList } from '../../apis/AuthorityListAPI';
+import { createUserList } from '../../apis/UserListAPI';
 
 function UserCreate() {
 
-    const authorityList = useSelector(state => state.authorityReducer);
-
     const [userInfo, setUserInfo] = useState({
-        name: '',
-        no: 0,
-        email: '',
-        authority: ''
+        name: '허희만',
+        no: 20230401,
+        email: 'TEAM1@WARMINGUP.COM',
+        authority: true
     });
 
-
     const dispatch = useDispatch();
-
-    useEffect(
-        () => {
-            dispatch(getAuthorityList());
-            setUserInfo({
-                name: '',
-                no: 0,
-                email: '',
-                authority: authorityList[0].name
-            });
-        },
-        []
-    );
+    const navigate = useNavigate();
 
     const onSaveAuthority = () => {
-        dispatch(saveUserList(userInfo));
+        dispatch(createUserList(userInfo));
+        goPrevPage();
+    }
+
+    const goPrevPage = () => {
+        navigate("..");
     }
 
     return (
@@ -46,10 +35,8 @@ function UserCreate() {
             </div>
 
             <div className="admin">
-
-                <form>
-
-                    <label for="">이름 : </label>
+                <form >
+                    <label>이름 : </label>
                     <input
                         type="text"
                         value={userInfo.name}
@@ -57,7 +44,7 @@ function UserCreate() {
                     />
                     <br />
 
-                    <label for="">사번 : </label>
+                    <label>사번 : </label>
                     <input
                         type="text"
                         value={userInfo.no}
@@ -65,30 +52,21 @@ function UserCreate() {
                     />
                     <br />
 
-                    <label for="">이메일 : </label>
+                    <label>이메일 : </label>
                     <input
                         type="text"
                         value={userInfo.email}
                         onChange={e => setUserInfo({ ...userInfo, email: e.target.value })}
                     />
                     <br />
-                    <label for="">권한 : </label>
-                    <select name="authority" value={userInfo.authority} onChange={e => setUserInfo({ ...userInfo, authority: e.target.value })}>
-                        {authorityList.map(authority => (
-                            <option key={authority.no} value={authority.name}>{authority.name}</option>
-                        ))}
-                    </select>
-
+                    <label>프로젝트 생성 권한 : </label>
+                    <input type="checkbox" value={userInfo.authority} onChange={e => setUserInfo({ ...userInfo, authority: e.target.checked })} />
                 </form>
 
 
                 <div className='button'>
-                    <NavLink to="..">
-                        <button type="button" className='btn btn-primary' onClick={onSaveAuthority}>등록</button>
-                    </NavLink>
-                    <NavLink to="..">
-                        <button type="button" className='btn btn-warning' >취소</button>
-                    </NavLink>
+                    <button type="button" className='btn btn-primary' onClick={onSaveAuthority}>등록</button>
+                    <button type="button" className='btn btn-warning' onClick={goPrevPage}>취소</button>
                 </div>
             </div>
         </div >

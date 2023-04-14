@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setProjectList } from '../../apis/ProjectListAPI';
+import { getDashDoardProject } from '../../apis/DashboardAPI';
+
+import '../../css/admin.css';
 
 function DashboardProject() {
 
@@ -10,7 +12,7 @@ function DashboardProject() {
 
     useEffect(
         () => {
-            dispatch(setProjectList());
+            dispatch(getDashDoardProject());
         },
         []
     );
@@ -33,12 +35,11 @@ function DashboardProject() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {projectList.map(project => (project.no < 10) && (
-                                            <tr key={project.no}>
-                                                <td>{project.projectName}</td>
+                                        {projectList.map(project =>
+                                            <tr key={projectList.indexOf(project)}>
+                                                <td>{project.name}</td>
                                                 <td>{project.startDate}</td>
                                             </tr>
-                                        )
                                         )}
                                     </tbody>
                                 </table>

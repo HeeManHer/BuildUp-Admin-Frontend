@@ -1,18 +1,62 @@
-import { GET_AUTHORITY, SET_AUTHORITY, CREATE_AUTHORITY, SAVE_AUTHORITY, DELETE_AUTHORITY } from "../moduels/authority";
-import AuthorityList from '../data/AuthorityList.json';
+import { GET_AUTHORITY, SAVE_AUTHORITY } from "../moduels/authority";
+import { GET_AUTH_TYPE } from "../moduels/authType";
+import { GET_AUTH_ROLE } from "../moduels/authRole";
 
+export function getAuthority() {
 
+    const url = 'http://localhost:8888/api/v1/manage-auths';
 
-export function getAuthorityList() {
+    return async (dispatch, getState) => {
 
-    return function (dispatch, getState) {
-        dispatch({ type: GET_AUTHORITY });
+        const result = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+            }
+        })
+            .then(res => res.json())
+            .then(res => res.data);
+
+        dispatch({ type: GET_AUTHORITY, payload: result });
     }
 }
-export function setAuthorityList() {
+export function getAuthRole() {
 
-    return function (dispatch, getState) {
-        dispatch({ type: SET_AUTHORITY, payload: AuthorityList });
+    const url = 'http://localhost:8888/api/v1/manage-auths/roles';
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+            }
+        })
+            .then(res => res.json())
+            .then(res => res.data);
+
+        dispatch({ type: GET_AUTH_ROLE, payload: result });
+    }
+}
+export function getAuthType() {
+
+    const url = 'http://localhost:8888/api/v1/manage-auths/types';
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+            }
+        })
+            .then(res => res.json())
+            .then(res => res.data);
+
+        dispatch({ type: GET_AUTH_TYPE, payload: result });
     }
 }
 
@@ -23,60 +67,32 @@ export function saveAuthorityList(authority) {
     }
 }
 
-export function createAuthorityList(no) {
+export function createAuthorityList(state) {
 
 
-    const newAuthority = {
-        no: no,
-        name: "",
-        auth: [
-            {
-                type: "프로젝트",
-                state: [
-                    "",
-                    "",
-                    "",
-                    ""
-                ]
-            },
-            {
-                type: "백로그",
-                state: [
-                    "",
-                    "",
-                    "",
-                    ""
-                ]
-            },
-            {
-                type: "스프린트",
-                state: [
-                    "",
-                    "",
-                    "",
-                    ""
-                ]
-            },
-            {
-                type: "이슈",
-                state: [
-                    "",
-                    "",
-                    "",
-                    ""
-                ]
-            }
-        ]
-    }
+    const url = 'http://localhost:8888/api/v1/auths';
 
-    return function (dispatch, getState) {
-        dispatch({ type: CREATE_AUTHORITY, payload: newAuthority });
+    return async function (dispatch, getState) {
+        const result = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+            },
+            body: JSON.stringify(state)
+        });
     }
 }
 
-export function deleteAuthorityList(authority) {
-
-    return function (dispatch, getState) {
-        dispatch({ type: DELETE_AUTHORITY, payload: authority });
-    }
+export async function deleteAuthorityList(authority) {
+    await authority.forEach(element => {
+        const url = "http://localhost:8888/api/v1/auths/" + element;
+        fetch(url, {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json",
+                "Accept": "*/*"
+            }
+        });
+    });
 }
