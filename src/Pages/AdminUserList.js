@@ -28,10 +28,9 @@ function AdminUserList() {
 
     useEffect(
         () => {
-            const auth = userList.map(user => user.authority);
-            setChangeAuthority(auth);
+            setChangeAuthority(userList.map(user => user.authority ? 'PM' : '팀원'));
         },
-        [userList]
+        []
     )
     // console.log(changeAuthority);
 
@@ -62,18 +61,13 @@ function AdminUserList() {
         }
     };
 
-    const updateAuthority = () => {
-        dispatch(updateUserAuthority(changeAuthority));
-        window.location.reload();
-    }
-
     const onClickDeleteBtn = () => {
         deleteUserList(deleteUser);
         window.location.reload();
     }
 
     // console.log(userList);
-    console.log(changeAuthority);
+    // console.log(changeAuthority);
 
 
     return (
@@ -85,8 +79,6 @@ function AdminUserList() {
 
                 <div className='button'>
                     <button type="button" className='btn btn-primary' onClick={() => navigate("./create")} >등록</button>
-                    <button type="button" className='btn btn-primary' onClick={updateAuthority}>저장</button>
-                    <button type="button" className='btn btn-primary' onClick={() => window.location.reload()} >취소</button>
                     <button type="button" className='btn btn-primary' onClick={onClickDeleteBtn}>삭제</button>
                 </div>
 
@@ -101,7 +93,7 @@ function AdminUserList() {
                         </tr>
                     </thead>
                     <tbody>
-                        {userList.map((user, index) =>
+                        {userList.map(user =>
                             <tr key={user.no}>
                                 <td>
                                     <input
@@ -112,33 +104,20 @@ function AdminUserList() {
                                         onClick={e => onDeleteUserChecked(e.target.value, e.target.checked)}
                                     />
                                 </td>
-                                <td onClick={() => console.log("hello")}>{user.name}</td>
-                                <td>{user.no}</td>
-                                <td>{user.email}</td>
-                                <td>
-                                    <input
-                                        type="checkbox"
-                                        id={user.name}
-                                        checked={changeAuthority[index] ? true : false}
-                                        onChange={e =>
-                                            setChangeAuthority(
-                                                changeAuthority.filter((it, id) =>
-                                                    console.log(id, index,changeAuthority[id]) &&
-                                                        id === index ? (e.target.checked ? 'PM' : null) : it
-                                                )
-                                            )
-                                        }
-                                    />
-                                    <label style={{ "color": changeAuthority[index] ? "blue" : "black" }}>{user.authority}</label>
+                                <td onClick={() => navigate("./" + user.no)}>{user.name}</td>
+                                <td onClick={() => navigate("./" + user.no)}>{user.no}</td>
+                                <td onClick={() => navigate("./" + user.no)}>{user.email}</td>
+                                <td onClick={() => navigate("./" + user.no)}>
+                                    <input type="checkbox" defaultChecked={user.authority == null ? false : true} />
                                 </td>
                             </tr>
                         )}
                     </tbody>
                 </table>
-                <div className='button'>
+                {/* <div className='button'>
                     <button className='btn btn-primary' onClick={prevPage}>이전</button>
                     <button className='btn btn-primary' onClick={nextPage}>다음</button>
-                </div>
+                </div> */}
             </div>
         </div >
     );
