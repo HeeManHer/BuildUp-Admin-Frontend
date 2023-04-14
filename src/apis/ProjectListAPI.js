@@ -1,16 +1,34 @@
-import {  SET_PROJECT, SEARCH_PROJECT } from "../moduels/project";
-import Project from '../data/ProjectList.json';
+import { GET_PROJECT, SEARCH_PROJECT } from "../moduels/project";
 
 export function setProjectList() {
 
-    return function (dispatch, getState) {
-        dispatch({ type: SET_PROJECT, payload: Project });
+    const url = "http://localhost:8888/api/v1/manage-projects"
+
+    return async function (dispatch, getState) {
+        const result = await fetch(url, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+            }
+        }).then(res => res.json());
+
+        dispatch({ type: GET_PROJECT, payload: result.data });
     }
 }
 
 export function searchProject(searchValue) {
+    const url = "http://localhost:8888/api/v1/manage-projects?search=" + searchValue;
 
-    return function (dispatch, getState) {
-        dispatch({ type: SEARCH_PROJECT, payload: searchValue });
+    return async function (dispatch, getState) {
+        const result = await fetch(url, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+            }
+        }).then(res => res.json());
+
+        dispatch({ type: SEARCH_PROJECT, payload: result.data });
     }
 }

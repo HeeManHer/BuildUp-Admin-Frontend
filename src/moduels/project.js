@@ -2,27 +2,22 @@ import { createActions, handleActions } from 'redux-actions';
 
 const projectList = [];
 
-export const GET_PROJECT = 'user/GET_PROJECT';
-export const SET_PROJECT = 'user/SET_PROJECT';
+export const GET_DASH_PROJECT = 'user/GET_DASH_PROJECT';
+export const GET_PROJECT = 'user/SET_PROJECT';
 export const SEARCH_PROJECT = 'user/SEARCH_PROJECT';
 
 const action = createActions({
-    [SET_PROJECT]: () => { },
+    [GET_DASH_PROJECT]: () => { },
+    [GET_PROJECT]: () => { },
     [SEARCH_PROJECT]: () => { },
 });
 
 
 const projectReducer = handleActions(
     {
-        [SET_PROJECT]: (state, { payload }) => payload,
-        [SEARCH_PROJECT]: (state, { payload }) => {
-            const result1 = state.filter(project => project.teamName === payload);
-            const result2 = state.filter(project => project.projectName === payload);
-            const result3 = state.filter(project => project.manager === payload);
-            const result4 = state.filter(project => project.startDate === payload);
-
-            return [...result1, ...result2, ...result3, ...result4];
-        }
+        [GET_DASH_PROJECT]: (state, { payload }) => payload,
+        [GET_PROJECT]: (state, { payload }) => payload,
+        [SEARCH_PROJECT]: (state, { payload }) => payload
     },
     projectList
 );

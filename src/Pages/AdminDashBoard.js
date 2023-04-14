@@ -10,9 +10,7 @@ function AdminDashBoard() {
             <Title title={'Dashboard'} />
 
             <div className="row">
-                <DashboardCard category='백로그' />
-                <DashboardCard category='이슈' />
-                <DashboardCard category='스프린트' />
+                <DashboardCard />
             </div>
             <div className="row">
                 <DashboardProject />

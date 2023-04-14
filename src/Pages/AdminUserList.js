@@ -1,40 +1,39 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import '../css/admin.css';
 
-import { getUserList, setUserList, changeUserList, deleteUserList } from '../apis/UserListAPI';
-import { setAuthorityList, getAuthorityList } from '../apis/AuthorityListAPI';
+import { getUserList, deleteUserList, updateUserAuthority } from '../apis/UserListAPI';
 import Search from '../components/commons/Search';
 import Title from '../components/commons/Title';
 
 function AdminUserList() {
 
     const [deleteUser, setDeleteUser] = useState([]);
+    const [changeAuthority, setChangeAuthority] = useState([]);
     const [page, setPage] = useState(1);
 
     const userList = useSelector(state => state.userReducer);
-    const authorityList = useSelector(state => state.authorityReducer);
-
     const dispatch = useDispatch();
+
+    const navigate = useNavigate();
 
     useEffect(
         () => {
-            if (userList.length == 0) {
-                dispatch(setUserList());
-            } else {
-                dispatch(getUserList());
-            }
-
-            if (authorityList.length === 0) {
-                dispatch(setAuthorityList());
-            } else {
-                dispatch(getAuthorityList());
-            }
+            dispatch(getUserList());
         },
         []
     );
+
+    useEffect(
+        () => {
+            const auth = userList.map(user => user.authority);
+            setChangeAuthority(auth);
+        },
+        [userList]
+    )
+    // console.log(changeAuthority);
 
     const nextPage = () => {
         if (userList.length / 10 >= page) {
@@ -47,22 +46,13 @@ function AdminUserList() {
         }
     }
 
-    const onChangeAuthority = (user, value) => {
-
-        user = {
-            ...user,
-            authority: value
-        };
-
-        dispatch(changeUserList(user));
+    const onChangeAuthorityChecked = (userNo, isChecked) => {
+        if (isChecked) {
+            setChangeAuthority([...changeAuthority, userNo]);
+        } else {
+            setChangeAuthority(changeAuthority.filter(user => user !== userNo));
+        }
     }
-
-    const onSaveUser = () => {
-        dispatch(getUserList());
-    };
-    const onUndoUser = () => {
-        dispatch(setUserList());
-    };
 
     const onDeleteUserChecked = (userNo, isChecked) => {
         if (isChecked) {
@@ -72,43 +62,46 @@ function AdminUserList() {
         }
     };
 
-    const onClickDeleteBtn = () => {
-
-        dispatch(deleteUserList(deleteUser));
+    const updateAuthority = () => {
+        dispatch(updateUserAuthority(changeAuthority));
+        window.location.reload();
     }
+
+    const onClickDeleteBtn = () => {
+        deleteUserList(deleteUser);
+        window.location.reload();
+    }
+
+    // console.log(userList);
+    console.log(changeAuthority);
 
 
     return (
         <div className="container-fluid">
-
-
             <Title title={'사원 관리'} />
 
             <div className="admin">
                 <Search category="user" />
 
                 <div className='button'>
-                    <NavLink to="./create">
-                        <button type="button" className='btn btn-primary' >등록</button>
-                    </NavLink>
-                    <button type="button" className='btn btn-primary' onClick={onSaveUser}>저장</button>
-                    <button type="button" className='btn btn-primary' onClick={onUndoUser} >취소</button>
+                    <button type="button" className='btn btn-primary' onClick={() => navigate("./create")} >등록</button>
+                    <button type="button" className='btn btn-primary' onClick={updateAuthority}>저장</button>
+                    <button type="button" className='btn btn-primary' onClick={() => window.location.reload()} >취소</button>
                     <button type="button" className='btn btn-primary' onClick={onClickDeleteBtn}>삭제</button>
                 </div>
 
                 <table className="admin-table" width="90%">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>선택</th>
                             <th>이름</th>
                             <th>사번</th>
                             <th>이메일</th>
-                            <th>권한</th>
+                            <th>프로젝트 생성 권한</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {userList.map(user =>
-                            (userList.indexOf(user) >= 10 * (page - 1) && userList.indexOf(user) < 10 * page) &&
+                        {userList.map((user, index) =>
                             <tr key={user.no}>
                                 <td>
                                     <input
@@ -119,15 +112,24 @@ function AdminUserList() {
                                         onClick={e => onDeleteUserChecked(e.target.value, e.target.checked)}
                                     />
                                 </td>
-                                <td>{user.name}</td>
+                                <td onClick={() => console.log("hello")}>{user.name}</td>
                                 <td>{user.no}</td>
                                 <td>{user.email}</td>
                                 <td>
-                                    <select name="authority" value={user.authority} onChange={(e) => onChangeAuthority(user, e.target.value)}>
-                                        {authorityList.map(authority => (
-                                            <option key={authority.no} value={authority.name}>{authority.name}</option>
-                                        ))}
-                                    </select>
+                                    <input
+                                        type="checkbox"
+                                        id={user.name}
+                                        checked={changeAuthority[index] ? true : false}
+                                        onChange={e =>
+                                            setChangeAuthority(
+                                                changeAuthority.filter((it, id) =>
+                                                    console.log(id, index,changeAuthority[id]) &&
+                                                        id === index ? (e.target.checked ? 'PM' : null) : it
+                                                )
+                                            )
+                                        }
+                                    />
+                                    <label style={{ "color": changeAuthority[index] ? "blue" : "black" }}>{user.authority}</label>
                                 </td>
                             </tr>
                         )}
@@ -138,7 +140,7 @@ function AdminUserList() {
                     <button className='btn btn-primary' onClick={nextPage}>다음</button>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

@@ -1,53 +1,110 @@
-function DashboardCard({ category }) {
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getDashBacklog, getDashIssue, getDashSprint } from "../../apis/DashboardAPI";
 
-    let card_style = 'card shadow h-100 py-2';
-    let text_style = 'text-lg font-weight-bold text-uppercase mb-1';
+import '../../css/admin.css';
 
-    switch (category) {
-        case '백로그':
-            card_style += ' border-left-primary';
-            text_style += ' text-primary';
-            break;
-        case '이슈':
-            card_style += ' border-left-success';
-            text_style += ' text-success';
-            break;
-        case '스프린트':
-            card_style += ' border-left-info';
-            text_style += ' text-info';
-            break;
-    }
+function DashboardCard() {
+
+    const backlogList = useSelector(state => state.backlogReducer);
+    const issueList = useSelector(state => state.issueReducer);
+    const sprintList = useSelector(state => state.sprintReducer);
+
+    const dispatch = useDispatch();
+
+    useEffect(
+        () => {
+            dispatch(getDashBacklog());
+            dispatch(getDashIssue());
+            dispatch(getDashSprint());
+        },
+        []
+    )
 
     return (
-        <div className="col-xl-3 col-md-6 mb-4">
-            <div className={card_style}>
-                <div className="card-body">
-                    <div className="row no-gutters align-items-center">
-                        <div className="col mr-2">
-                            <div className={text_style}>
-                                <table width="100%">
-                                    <thead>
-                                        <tr className="text-center">
-                                            <th colSpan="2">{category} 현황</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>진행중인 {category}</td>
-                                            <td>20</td>
-                                        </tr>
-                                        <tr>
-                                            <td>완료된 {category}</td>
-                                            <td>20</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+        <>
+            <div className="col-xl-3 col-md-6 mb-4">
+                <div className='card shadow h-100 py-2 border-left-primary'>
+                    <div className="card-body">
+                        <div className="row no-gutters align-items-center">
+                            <div className="col mr-2">
+                                <div className='text-lg font-weight-bold text-uppercase mb-1 text-primary'>
+                                    <table width="100%">
+                                        <thead>
+                                            <tr className="text-center">
+                                                <th colSpan="2">백로그 현황</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {backlogList.map(backlog =>
+                                                <tr key={backlogList.indexOf(backlog)}>
+                                                    <td>{backlog.state}</td>
+                                                    <td>{backlog.count}</td>
+                                                </tr>
+                                            )}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <div className="col-xl-3 col-md-6 mb-4">
+                <div className='card shadow h-100 py-2 border-left-success'>
+                    <div className="card-body">
+                        <div className="row no-gutters align-items-center">
+                            <div className="col mr-2">
+                                <div className='text-lg font-weight-bold text-uppercase mb-1 text-success'>
+                                    <table width="100%">
+                                        <thead>
+                                            <tr className="text-center">
+                                                <th colSpan="2">이슈 현황</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {issueList.map(issue =>
+                                                <tr key={issueList.indexOf(issue)}>
+                                                    <td>{issue.state}</td>
+                                                    <td>{issue.count}</td>
+                                                </tr>
+                                            )}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="col-xl-3 col-md-6 mb-4">
+                <div className='card shadow h-100 py-2 border-left-info'>
+                    <div className="card-body">
+                        <div className="row no-gutters align-items-center">
+                            <div className="col mr-2">
+                                <div className='text-lg font-weight-bold text-uppercase mb-1 text-info'>
+                                    <table width="100%">
+                                        <thead>
+                                            <tr className="text-center">
+                                                <th colSpan="2">스프린트 현황</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {sprintList.map(sprint =>
+                                                <tr key={sprintList.indexOf(sprint)}>
+                                                    <td>{sprint.state}</td>
+                                                    <td>{sprint.count}</td>
+                                                </tr>
+                                            )}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
     );
 }
 

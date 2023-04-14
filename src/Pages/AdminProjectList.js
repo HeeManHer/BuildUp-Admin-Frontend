@@ -22,6 +22,7 @@ function AdminProjectList() {
         []
     );
 
+    console.log(projectList);
     const nextPage = () => {
         if (projectList.length / 10 >= page) {
             setPage(page + 1);
@@ -46,7 +47,6 @@ function AdminProjectList() {
                     <thead>
                         <tr>
                             <th>순번</th>
-                            <th>팀명</th>
                             <th>프로젝트 명</th>
                             <th>담당자</th>
                             <th>프로젝트 시작일</th>
@@ -58,9 +58,8 @@ function AdminProjectList() {
                                 (projectList.indexOf(project) >= 10 * (page - 1) && projectList.indexOf(project) < 10 * page) && (
                                     <tr key={project.no}>
                                         <td>{project.no}</td>
-                                        <td>{project.teamName}</td>
-                                        <td>{project.projectName}</td>
-                                        <td>{project.manager}</td>
+                                        <td>{project.title}</td>
+                                        <td>{project.manager || '미정'}</td>
                                         <td>{project.startDate}</td>
                                     </tr>
                                 )
