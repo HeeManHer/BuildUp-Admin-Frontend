@@ -7,13 +7,9 @@ import '../../css/admin.css';
 import { createUserList } from '../../apis/UserListAPI';
 import Title from '../commons/Title';
 
-function UserCreate() {
-
+function CreateNewAuthority() {
     const [userInfo, setUserInfo] = useState({
-        name: '도비',
-        no: '666666',
-        email: 'DOBY@WARMMINGUP.COM',
-        authority: ''
+
     });
 
     const dispatch = useDispatch();
@@ -31,11 +27,11 @@ function UserCreate() {
     return (
         <div className="container-fluid">
 
-            <Title title='사원 등록' />
+            <Title title='권한 등록' />
 
             <div className="admin">
                 <form >
-                    <label>이름 : </label>
+                    <label>역할 이름 : </label>
                     <input
                         type="text"
                         value={userInfo.name}
@@ -73,4 +69,4 @@ function UserCreate() {
     );
 }
 
-export default UserCreate;
+export default CreateNewAuthority;

@@ -1,6 +1,6 @@
 import { createActions, handleActions } from 'redux-actions';
 
-const authorityList = [{}];
+const authorityList = [];
 
 export const GET_DASH_AUTHORITY = 'authority/GET_DASH_AUTHORITY';
 export const GET_AUTHORITY = 'authority/GET_AUTHORITY';

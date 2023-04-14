@@ -1,4 +1,4 @@
-import { GET_USER, CREATE_USER, UPDATE_USER, DELETE_USER, SEARCH_USER } from "../moduels/user";
+import { GET_USER_LIST, SEARCH_USER, GET_USER_DETAIL } from "../moduels/user";
 
 
 export function getUserList() {
@@ -13,9 +13,27 @@ export function getUserList() {
                 "Content-Type": "application/json",
                 "Accept": "*/*"
             }
+        }).then(res => res.json())
+
+        dispatch({ type: GET_USER_LIST, payload: result.data });
+    }
+}
+
+export function getUserInfo(userNo) {
+
+    const requestUrl = "http://localhost:8888/api/v1/manage-users/" + userNo;
+
+    return async function (dispatch, getState) {
+
+        const result = await fetch(requestUrl, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+            }
         }).then(res => res.json());
 
-        dispatch({ type: GET_USER, payload: result.data });
+        dispatch({ type: GET_USER_DETAIL, payload: result.data });
     }
 }
 
@@ -67,10 +85,9 @@ export async function deleteUserList(user) {
     }
 }
 
-export function updateUserAuthority(userNoList) {
-    console.log(JSON.stringify(userNoList));
+export function modifyUserInfo(user, userNo) {
 
-    const requestUrl = "http://localhost:8888/api/v1/manage-users";
+    const requestUrl = "http://localhost:8888/api/v1/manage-users/" + userNo;
 
     return async function (dispatch, getState) {
 
@@ -80,7 +97,7 @@ export function updateUserAuthority(userNoList) {
                 "Content-Type": "application/json",
                 "Accept": "*/*"
             },
-            body: JSON.stringify(userNoList)
+            body: JSON.stringify(user)
         })
     }
 }

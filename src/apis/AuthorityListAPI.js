@@ -70,7 +70,7 @@ export function saveAuthorityList(authority) {
 export function createAuthorityList(state) {
 
 
-    const url = 'http://localhost:8888/api/v1/auths';
+    const url = 'http://localhost:8888/api/v1/manage-auths';
 
     return async function (dispatch, getState) {
         const result = await fetch(url, {
@@ -84,15 +84,16 @@ export function createAuthorityList(state) {
     }
 }
 
-export async function deleteAuthorityList(authority) {
-    await authority.forEach(element => {
-        const url = "http://localhost:8888/api/v1/auths/" + element;
-        fetch(url, {
-            method: "DELETE",
-            headers: {
-                "content-type": "application/json",
-                "Accept": "*/*"
-            }
-        });
+export async function deleteAuthorityList(authNo) {
+
+    const url = "http://localhost:8888/api/v1/manage-auths/" + authNo;
+
+    await fetch(url, {
+        method: "DELETE",
+        headers: {
+            "content-type": "application/json",
+            "Accept": "*/*"
+        }
     });
+
 }

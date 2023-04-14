@@ -32,9 +32,6 @@ function AdminAuthorityList() {
         },
         []
     )
-    // console.log(authorityList);
-    // console.log(authRole);
-    // console.log(authType);
 
     const createAuthority = () => {
         setRoleName("");
@@ -50,36 +47,36 @@ function AdminAuthorityList() {
         window.location.reload();
     }
 
-    const updateKeyDown = (event, authority) => {
-        if (event.key !== 'Enter') return;
+    // const updateKeyDown = (event, authority) => {
+    //     if (event.key !== 'Enter') return;
 
-        authority.name = value;
+    //     authority.name = value;
 
-        setUpdate(null);
-        setValue('');
-        dispatch(saveAuthorityList(authority));
-    };
+    //     setUpdate(null);
+    //     setValue('');
+    //     dispatch(saveAuthorityList(authority));
+    // };
 
-    const handleClick = (index, e) => {
-        setValue(e.target.innerHTML);
-        setUpdate(index);
-    };
+    // const handleClick = (index, e) => {
+    //     setValue(e.target.innerHTML);
+    //     setUpdate(index);
+    // };
 
 
-    const checkValue = (e, roleName) => {
+    // const checkValue = (e, roleName) => {
 
-        if (e.target.checked) {
-            setState([...state,
-            {
-                roleName,
-                typeName: e.target.name,
-                state: e.target.value
-            }
-            ]);
-        } else {
-            setState(state.filter(item => !(item.roleName === roleName && item.state === e.target.value && item.typeName === e.target.name)));
-        }
-    }
+    //     if (e.target.checked) {
+    //         setState([...state,
+    //         {
+    //             roleName,
+    //             typeName: e.target.name,
+    //             state: e.target.value
+    //         }
+    //         ]);
+    //     } else {
+    //         setState(state.filter(item => !(item.roleName === roleName && item.state === e.target.value && item.typeName === e.target.name)));
+    //     }
+    // }
 
     const onDeleteAuthorityChecked = (authNo, isChecked) => {
 
@@ -93,7 +90,9 @@ function AdminAuthorityList() {
 
     const onClickDeleteBtn = () => {
 
-        deleteAuthorityList(deleteAuthority);
+        deleteAuthority.forEach(authNo=>{
+            deleteAuthorityList(authNo);
+        })
 
         window.location.reload();
 
@@ -126,19 +125,18 @@ function AdminAuthorityList() {
                     <button type="button" className='btn btn-primary' onClick={onClickDeleteBtn}>삭제</button>
                 </div>
 
-                <table className="admin-table" width="90%">
+                <table className="admin-table" width="90%" >
                     <thead>
                         <tr >
                             <th></th>
                             <th>권한</th>
-                            {authType.map((item, index) =>
-                                <th key={index}>{item.typeName}</th>
-                            )}
+                            <th>타입</th>
+                            <th>상태</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {authRole.map((role, index) =>
-                            <tr>
+                        {authRole.map(role => (
+                            <tr key={role.roleNo}>
                                 <td>
                                     <input
                                         type="checkbox"
@@ -149,51 +147,41 @@ function AdminAuthorityList() {
                                     />
                                 </td>
                                 <td>{role.roleName}</td>
-                                {authorityList.map((item, index) =>
-                                    role.roleNo === item.roleNo &&
-                                    authType[index % authType.length].typeNo === item.typeNo &&
-                                    <td key={index} className='auth'>
-
-                                        <input type="checkbox" name={item.typeName} value="C" defaultChecked={e => item.state === e.target.value} onChange={e => checkValue(e, role.roleName)} />
-                                        <label>{item.typeName}</label>
-                                        <input type="checkbox" name={item.typeName} value="R" defaultChecked={e => item.state === e.target.value} onChange={e => checkValue(e, role.roleName)} />
-                                        <label>{item.state}</label>
-                                        <input type="checkbox" name={item.typeName} value="U" defaultChecked={e => item.state === e.target.value} onChange={e => checkValue(e, role.roleName)} />
-                                        <label>{item.state}</label>
-                                        <input type="checkbox" name={item.typeName} value="D" defaultChecked={e => item.state === e.target.value} onChange={e => checkValue(e, role.roleName)} />
-                                        <label>{item.state}</label>
-                                    </td>
-                                )}
-                            </tr>
-                        )}
-                        {roleName == null ||
-                            <tr>
                                 <td>
-                                    <button type="button" className='btn-sm btn-primary' onClick={registAuthority}>등록</button>
+                                    {authType.map(type => (
+                                        <tr key={authRole.length + type.typeNo}>
+                                            <td>
+                                                {type.typeName}
+                                            </td>
+                                        </tr>
+                                    ))}
                                 </td>
-                                <td><input type="text" value={roleName} onChange={e => setRoleName(e.target.value)} /></td>
-                                {authType.map((type, index) => (
-                                    <td key={index} className='auth'>
-                                        <input type="checkbox" name={type.typeName} value="C" onChange={e => checkValue(e, roleName)} />
-                                        <label>C</label>
-                                        <input type="checkbox" name={type.typeName} value="R" onChange={e => checkValue(e, roleName)} />
-                                        <label>R</label>
-                                        <input type="checkbox" name={type.typeName} value="U" onChange={e => checkValue(e, roleName)} />
-                                        <label>U</label>
-                                        <input type="checkbox" name={type.typeName} value="D" onChange={e => checkValue(e, roleName)} />
-                                        <label>D</label>
-                                    </td>
-                                ))}
+                                <td>
+                                    {authorityList.map((auth, index, arr) => {
+                                        if (role.roleName === auth.roleName) {
+                                            if (index === 0 || arr[index - 1].typeName !== arr[index].typeName) {
+                                                return (
+                                                    <>
+                                                        <tr key={authRole.length + authType.length + index} />
+                                                        <td>{auth.state}</td>
+                                                    </>
+                                                )
+                                            } else {
+                                                return (<td key={authRole.length + authType.length + index}>{auth.state}</td>);
+                                            }
+                                        }
+                                    })}
+                                </td>
                             </tr>
-                        }
+                        ))}
                     </tbody>
                 </table>
-                <div className='button'>
+                {/* <div className='button'>
                     <button className='btn btn-primary' onClick={prevPage}>이전</button>
                     <button className='btn btn-primary' onClick={nextPage}>다음</button>
-                </div>
+                </div> */}
             </div>
-        </div>
+        </div >
     );
 }
 

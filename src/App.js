@@ -6,6 +6,7 @@ import AdminDashBoard from "./Pages/AdminDashBoard";
 import AdminProjectList from "./Pages/AdminProjectList";
 import AdminUserList from "./Pages/AdminUserList";
 import UserCreate from "./components/items/UserCreate";
+import UserInfo from "./components/items/UserInfo";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="userlist">
             <Route index element={<AdminUserList />} />
             <Route path="create" element={<UserCreate />} />
+            <Route path=":userNo" element={<UserInfo />} />
           </Route>
           <Route path="authority" element={<AdminAuthorityList />} />
         </Route>
