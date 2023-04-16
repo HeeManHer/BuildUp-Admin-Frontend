@@ -21,6 +21,29 @@ export function getAuthority() {
         dispatch({ type: GET_AUTHORITY, payload: result });
     }
 }
+
+export function getOneAuthority(authNo) {
+
+    const url = `http://localhost:8888/api/v1/manage-auths/${authNo}`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+            }
+        })
+            .then(res => res.json())
+            .then(res => res.data);
+
+        dispatch({ type: GET_AUTHORITY, payload: result });
+    }
+}
+
+
+
 export function getAuthRole() {
 
     const url = 'http://localhost:8888/api/v1/manage-auths/roles';
@@ -60,15 +83,7 @@ export function getAuthType() {
     }
 }
 
-export function saveAuthorityList(authority) {
-
-    return function (dispatch, getState) {
-        dispatch({ type: SAVE_AUTHORITY, payload: authority });
-    }
-}
-
-export function createAuthorityList(state) {
-
+export function registAuthority(authority) {
 
     const url = 'http://localhost:8888/api/v1/manage-auths';
 
@@ -79,7 +94,23 @@ export function createAuthorityList(state) {
                 "Content-Type": "application/json",
                 "Accept": "*/*"
             },
-            body: JSON.stringify(state)
+            body: JSON.stringify(authority)
+        });
+    }
+}
+
+export function updateAuthority(authority) {
+
+    const url = `http://localhost:8888/api/v1/manage-auths`;
+
+    return async function (dispatch, getState) {
+        const result = await fetch(url, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+            },
+            body: JSON.stringify(authority)
         });
     }
 }
