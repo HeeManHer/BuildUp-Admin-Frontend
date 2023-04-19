@@ -6,7 +6,7 @@ import '../../css/admin.css';
 
 function DashboardProject() {
 
-    const projectList = useSelector(state => state.projectReducer);
+    const projectList = useSelector(state => state.projectReducer.data);
 
     const dispatch = useDispatch();
 

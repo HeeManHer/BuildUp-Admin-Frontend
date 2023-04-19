@@ -14,7 +14,7 @@
 }
 
 .button {
-    width: 30%;
+    width: 50%;
     display: flex;
     align-items: flex-start;
 }
@@ -39,4 +39,11 @@
 
 .admin-table>thead>*>*:first-child {
     border-left: 3px solid #4e73df;
+}
+
+.paging {
+    margin: 5px;
+    border-radius: 25px;
+    background-color: white;
+    font-weight: bold;
 }

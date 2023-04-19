@@ -71,7 +71,7 @@ export function getDashDoardProject() {
             }
         }).then(res => res.json());
 
-        dispatch({ type: GET_DASH_PROJECT, payload: result.data });
+        dispatch({ type: GET_DASH_PROJECT, payload: result });
 
     }
 }

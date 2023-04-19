@@ -1,6 +1,8 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 function SideBar() {
+
+    const navigate = useNavigate();
 
     return (
         // Sidebar
@@ -20,43 +22,34 @@ function SideBar() {
 
             {/* 대시보드*/}
             <li className="nav-item">
-                <NavLink to="/">
-                    <a className="nav-link">
-                        <i className="fas fa-fw fa-cog"></i>
-                        <span>대시보드</span>
-                    </a>
-                </NavLink>
+                <a className="nav-link" onClick={() => navigate("/")}>
+                    <i className="fas fa-fw fa-cog"></i>
+                    <span>대시보드</span>
+                </a>
             </li>
 
             {/* 프로젝트 관리*/}
             <li className="nav-item">
-                <NavLink to="/projectlist">
-                    <a className="nav-link">
-                        <i className="fas fa-fw fa-wrench"></i>
-                        <span>프로젝트 관리</span>
-                    </a>
-                </NavLink>
+                <a className="nav-link" onClick={() => navigate("/projectlist")}>
+                    <i className="fas fa-fw fa-wrench"></i>
+                    <span>프로젝트 관리</span>
+                </a>
             </li>
 
             {/* 사원 관리 */}
             <li className="nav-item">
-                <NavLink to="/userlist">
-                    <a className="nav-link">
-                        <i className="fas fa-fw fa-folder"></i>
-                        <span>사원 관리</span>
-                    </a>
-                </NavLink>
+                <a className="nav-link" onClick={() => navigate("/userlist")}>
+                    <i className="fas fa-fw fa-folder"></i>
+                    <span>사원 관리</span>
+                </a>
             </li>
 
             {/* 권한 관리 */}
             <li className="nav-item">
-
-                <NavLink to="/authority">
-                    <a className="nav-link">
-                        <i className="fas fa-fw fa-chart-area"></i>
-                        <span>권한 관리</span>
-                    </a>
-                </NavLink>
+                <a className="nav-link" onClick={() => navigate("/authority")}>
+                    <i className="fas fa-fw fa-chart-area"></i>
+                    <span>권한 관리</span>
+                </a>
             </li>
 
             {/* <!-- Divider --> */}

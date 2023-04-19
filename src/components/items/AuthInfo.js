@@ -5,7 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import '../../css/admin.css';
 
 import Title from '../commons/Title';
-import { getAuthType, getOneAuthority, updateAuthority } from '../../apis/AuthorityListAPI';
+import { getAuthType, getAuthority, getOneAuthority, updateAuthority } from '../../apis/AuthorityListAPI';
+import { UPDATE_AUTHORITY } from '../../moduels/authority';
 
 function AuthInfo() {
 
@@ -14,7 +15,7 @@ function AuthInfo() {
     const authority = useSelector(state => state.authorityReducer)
     const authType = useSelector(state => state.typeReducer);
 
-    const [authInfo, setAuthInfo] = useState(authority.filter(auth => auth.roleNo === authNo)[0]);
+    const [authInfo, setAuthInfo] = useState(authority[0]);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -29,46 +30,65 @@ function AuthInfo() {
 
     useEffect(
         () => {
-            setAuthInfo(authority[0]);
+            if (authority[0] !== undefined)
+                setAuthInfo(authority[0]);
         },
         [authority]
     )
 
     const checkState = e => {
+        console.log(1);
         setAuthInfo({
             ...authInfo,
             type: authInfo.type.map(type => {
+                console.log(2);
                 if (type.typeName === e.target.name) {
+                    console.log(3);
                     if (e.target.checked) {
+                        console.log(4);
                         return {
                             ...type,
                             state: [...type.state, e.target.value]
                         }
                     } else {
+                        console.log(5);
                         return {
                             ...type,
                             state: type.state.filter(state => state !== e.target.value)
                         }
                     }
                 } else {
+                    console.log(6);
                     return type
                 }
             })
         });
+        console.log(7);
     }
-    // console.log(authInfo);
-
 
     const modifyAuthority = () => {
         if (authInfo.roleName === null || authInfo.roleName === '') return;
-        dispatch(updateAuthority(authInfo));
-        goPrevPage();
+        dispatch(updateAuthority(authInfo));        
+        navigate("/authority");
     }
 
-    const goPrevPage = () => {
-        navigate("../");
-        window.location.reload();
+    const prevPage = () => {
+        dispatch({
+            type: UPDATE_AUTHORITY, payload:
+            {
+                data: [{
+                    roleNo: '',
+                    roleName: '',
+                    type: []
+                }],
+                pageInfo: {}
+            }
+        }
+        );
+        navigate("/authority");
     }
+
+    console.log(authInfo);
 
     return (
         authInfo === undefined ?
@@ -96,60 +116,58 @@ function AuthInfo() {
                         </thead>
                         <tbody>
                             {
-                                authInfo === undefined ?
-                                    <h1>Loading...</h1> :
-                                    authType.map((type, index) => (
-                                        <tr>
-                                            <td>{type.typeName}</td>
-                                            <td>
-                                                <input
-                                                    type="checkbox"
-                                                    name={type.typeName}
-                                                    value='C'
-                                                    defaultChecked={authInfo.type.map(item => item.state.indexOf('C') >= 0)[0]}
-                                                    onChange={checkState}
-                                                />
-                                                <label >C</label>
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="checkbox"
-                                                    name={type.typeName}
-                                                    value='R'
-                                                    defaultChecked={authInfo.type.map(item => item.state.indexOf('R') >= 0)[0]}
-                                                    onChange={checkState}
-                                                />
-                                                <label >R</label>
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="checkbox"
-                                                    name={type.typeName}
-                                                    value='U'
-                                                    defaultChecked={authInfo.type.map(item => item.state.indexOf('U') >= 0)[0]}
-                                                    onChange={checkState}
-                                                />
-                                                <label >U</label>
-                                            </td>
-                                            <td>
-                                                <input
-                                                    type="checkbox"
-                                                    name={type.typeName}
-                                                    value='D'
-                                                    defaultChecked={authInfo.type.map(item => item.state.indexOf('D') >= 0)[0]}
-                                                    onChange={checkState}
-                                                />
-                                                <label >D</label>
-                                            </td>
-                                        </tr>
-                                    ))
+                                authInfo.type.map((type, index) => (
+                                    <tr>
+                                        <td>{type.typeName}</td>
+                                        <td>
+                                            <input
+                                                type="checkbox"
+                                                name={type.typeName}
+                                                value='C'
+                                                checked={type.state.filter(state => state === 'C').length > 0}
+                                                onChange={checkState}
+                                            />
+                                            <label >C</label>
+                                        </td>
+                                        <td>
+                                            <input
+                                                type="checkbox"
+                                                name={type.typeName}
+                                                value='R'
+                                                checked
+                                                readOnly
+                                            />
+                                            <label>R</label>
+                                        </td>
+                                        <td>
+                                            <input
+                                                type="checkbox"
+                                                name={type.typeName}
+                                                value='U'
+                                                checked={type.state.filter(state => state === 'U').length > 0}
+                                                onChange={checkState}
+                                            />
+                                            <label >U</label>
+                                        </td>
+                                        <td>
+                                            <input
+                                                type="checkbox"
+                                                name={type.typeName}
+                                                value='D'
+                                                checked={type.state.filter(state => state === 'D').length > 0}
+                                                onChange={checkState}
+                                            />
+                                            <label >D</label>
+                                        </td>
+                                    </tr>
+                                ))
                             }
                         </tbody>
                     </table>
 
                     <div className='button'>
                         <button type="button" className='btn btn-primary' onClick={modifyAuthority}>수정</button>
-                        <button type="button" className='btn btn-warning' onClick={goPrevPage}>취소</button>
+                        <button type="button" className='btn btn-warning' onClick={prevPage}>취소</button>
                     </div>
                 </div>
             </div >

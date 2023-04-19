@@ -1,55 +1,49 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import '../css/admin.css';
 
-import { getUserList, deleteUserList, updateUserAuthority } from '../apis/UserListAPI';
-import Search from '../components/commons/Search';
+import { getUserList, deleteUserList, searchUserList } from '../apis/UserListAPI';
 import Title from '../components/commons/Title';
 
 function AdminUserList() {
 
-    const [deleteUser, setDeleteUser] = useState([]);
-    const [changeAuthority, setChangeAuthority] = useState([]);
-    const [page, setPage] = useState(1);
-
-    const userList = useSelector(state => state.userReducer);
     const dispatch = useDispatch();
-
     const navigate = useNavigate();
 
+    const [deleteUser, setDeleteUser] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const userReducer = useSelector(state => state.userReducer);
+
+    const userList = userReducer.data;
+    const pageInfo = userReducer.pageInfo;
+
+    const pageAmount = [];
+    if (pageInfo) {
+        for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
+            pageAmount.push(i);
+        }
+    }
+
     useEffect(
         () => {
-            dispatch(getUserList());
+            dispatch(getUserList(currentPage, searchValue));
         },
-        []
+        [currentPage]
     );
 
-    useEffect(
-        () => {
-            setChangeAuthority(userList.map(user => user.authority ? 'PM' : '팀원'));
-        },
-        []
-    )
-    // console.log(changeAuthority);
-
     const nextPage = () => {
-        if (userList.length / 10 >= page) {
-            setPage(page + 1);
-        }
-    }
-    const prevPage = () => {
-        if (page - 1 > 0) {
-            setPage(page - 1);
+        if (currentPage + 1 <= pageInfo.maxPage) {
+            setCurrentPage(currentPage + 1);
         }
     }
 
-    const onChangeAuthorityChecked = (userNo, isChecked) => {
-        if (isChecked) {
-            setChangeAuthority([...changeAuthority, userNo]);
-        } else {
-            setChangeAuthority(changeAuthority.filter(user => user !== userNo));
+    const prevPage = () => {
+        if (currentPage - 1 >= 1) {
+            setCurrentPage(currentPage - 1);
         }
     }
 
@@ -63,11 +57,11 @@ function AdminUserList() {
 
     const onClickDeleteBtn = () => {
         deleteUserList(deleteUser);
-        window.location.reload();
     }
 
-    // console.log(userList);
-    // console.log(changeAuthority);
+    const onSearchUsers = () => {
+        dispatch(searchUserList(searchValue));
+    }
 
 
     return (
@@ -75,7 +69,17 @@ function AdminUserList() {
             <Title title={'사원 관리'} />
 
             <div className="admin">
-                <Search category="user" />
+                <form className="shadow-sm d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <div className="input-group">
+                        <input type="text" className="form-control bg-light border-0 small" placeholder="Search for..."
+                            value={searchValue} onChange={e => setSearchValue(e.target.value)} />
+                        <div className="input-group-append">
+                            <button className="btn btn-primary" type="button" onClick={onSearchUsers} onKeyDown={onSearchUsers}>
+                                <i className="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
 
                 <div className='button'>
                     <button type="button" className='btn btn-primary' onClick={() => navigate("./create")} >등록</button>
@@ -114,10 +118,24 @@ function AdminUserList() {
                         )}
                     </tbody>
                 </table>
-                {/* <div className='button'>
+                <div className='button'>
                     <button className='btn btn-primary' onClick={prevPage}>이전</button>
+                    {pageAmount.map(page => (
+                        <button
+                            key={page} onClick={() => setCurrentPage(page)}
+                            style={currentPage === page ? {
+                                color: '#fff',
+                                backgroundColor: '#f4b619',
+                                borderColor: '#f4b30d'
+                            }
+                                : null}
+                            className='paging'
+                        >
+                            {page}
+                        </button>
+                    ))}
                     <button className='btn btn-primary' onClick={nextPage}>다음</button>
-                </div> */}
+                </div>
             </div>
         </div >
     );
