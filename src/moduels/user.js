@@ -1,6 +1,11 @@
 import { createActions, handleActions } from 'redux-actions';
 
-const userList = [];
+const userList = {
+    data: [],
+    pageInfo: {
+
+    }
+};
 
 export const GET_USER_LIST = 'user/GET_USER_LIST';
 export const GET_USER_DETAIL = 'user/GET_USER_DETAIL';

@@ -11,7 +11,9 @@ function UserInfo() {
 
     const { userNo } = useParams();
 
-    const userInfo = useSelector(state => state.userReducer);
+    const userReducer = useSelector(state => state.userReducer);
+    const userInfo = userReducer.data
+
     const [user, setUser] = useState({
         name: '',
         no: '',
@@ -41,14 +43,6 @@ function UserInfo() {
         dispatch(modifyUserInfo(user, userNo));
         navigate("../");
     }
-
-    const goPrevPage = () => {
-
-    }
-
-    console.log(user);
-    console.log(user.authority === 'PM');
-
 
     return (
         <div className="container-fluid">
@@ -92,8 +86,8 @@ function UserInfo() {
                 <div className='button'>
                     <button type="button" className='btn btn-primary' onClick={onSaveAuthority}>저장</button>
                     <button type="button" className='btn btn-warning' onClick={() => navigate("../")}>취소</button>
+                </div>
             </div>
-        </div>
         </div >
     );
 }

@@ -1,9 +1,9 @@
 import { GET_USER_LIST, SEARCH_USER, GET_USER_DETAIL } from "../moduels/user";
 
 
-export function getUserList() {
+export function getUserList(pageNo, search) {
 
-    const requestUrl = "http://localhost:8888/api/v1/manage-users";
+    const requestUrl = `http://localhost:8888/api/v1/manage-users?page=${pageNo}&search=${search}`;
 
     return async function (dispatch, getState) {
 
@@ -33,7 +33,7 @@ export function getUserInfo(userNo) {
             }
         }).then(res => res.json());
 
-        dispatch({ type: GET_USER_DETAIL, payload: result.data });
+        dispatch({ type: GET_USER_DETAIL, payload: result });
     }
 }
 
@@ -53,7 +53,7 @@ export function searchUserList(searchValue) {
     }
 }
 
-export function createUserList(user) {
+export function registUser(user) {
 
     const requestUrl = "http://localhost:8888/api/v1/manage-users";
 
@@ -71,7 +71,6 @@ export function createUserList(user) {
 }
 
 export async function deleteUserList(user) {
-
     for (const userNo in user) {
         const url = "http://localhost:8888/api/v1/manage-users/" + user[userNo];
 
@@ -83,6 +82,8 @@ export async function deleteUserList(user) {
             }
         });
     }
+
+    window.location.reload();
 }
 
 export function modifyUserInfo(user, userNo) {

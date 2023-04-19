@@ -34,12 +34,12 @@ function AuthCreate() {
         () => {
             setAuthInfo({
                 ...authInfo,
-                type: authType.map(type => {
-                    return {
-                        typeName: type.typeName,
-                        state: []
-                    }
-                })
+                type: authType.map(type => ({
+                    typeNo: type.typeNo,
+                    typeName: type.typeName,
+                    state: ['R']
+                }
+                ))
             });
         },
         [authType]
@@ -75,12 +75,12 @@ function AuthCreate() {
             return;
         }
         dispatch(registAuthority(authInfo));
-        goPrevPage();
+        navigate("/authority");
+        window.location.reload();
     }
 
-    const goPrevPage = () => {
-        navigate("../");
-        window.location.reload();
+    const prevPage = () => {
+        navigate("/authority");
     }
 
     return (
@@ -123,7 +123,7 @@ function AuthCreate() {
                                         type="checkbox"
                                         name={type.typeName}
                                         value='R'
-                                        onClick={checkState}
+                                        checked
                                     />
                                     <label >R</label>
                                 </td>
@@ -153,7 +153,7 @@ function AuthCreate() {
 
                 <div className='button'>
                     <button type="button" className='btn btn-primary' onClick={createAuthority}>등록</button>
-                    <button type="button" className='btn btn-warning' onClick={goPrevPage}>취소</button>
+                    <button type="button" className='btn btn-warning' onClick={prevPage}>취소</button>
                 </div>
             </div>
         </div >

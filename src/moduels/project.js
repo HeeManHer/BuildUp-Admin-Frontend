@@ -1,6 +1,11 @@
 import { createActions, handleActions } from 'redux-actions';
 
-const projectList = [];
+const projectList = {
+    data: [],
+    pageInfo: {
+
+    }
+};
 
 export const GET_DASH_PROJECT = 'user/GET_DASH_PROJECT';
 export const GET_PROJECT = 'user/SET_PROJECT';

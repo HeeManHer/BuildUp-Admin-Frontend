@@ -4,28 +4,29 @@ import { useNavigate } from 'react-router-dom';
 
 import '../../css/admin.css';
 
-import { createUserList } from '../../apis/UserListAPI';
+import { registUser } from '../../apis/UserListAPI';
 import Title from '../commons/Title';
 
 function UserCreate() {
 
     const [userInfo, setUserInfo] = useState({
-        name: '도비',
-        no: '666666',
-        email: 'DOBY@WARMMINGUP.COM',
+        name: '좀비',
+        no: '777777',
+        password: '7777',
+        email: 'ZOMBI@WARMMINGUP.COM',
         authority: ''
     });
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const onSaveAuthority = () => {
-        dispatch(createUserList(userInfo));
-        navigate("../");
+    const createUser = () => {
+        dispatch(registUser(userInfo));
+        navigate("/userlist");
     }
 
     const goPrevPage = () => {
-        navigate("../");
+        navigate("/userlist");
     }
 
     return (
@@ -51,6 +52,14 @@ function UserCreate() {
                     />
                     <br />
 
+                    <label>비밀번호 : </label>
+                    <input
+                        type="text"
+                        value={userInfo.password}
+                        onChange={e => setUserInfo({ ...userInfo, password: e.target.value })}
+                    />
+                    <br />
+
                     <label>이메일 : </label>
                     <input
                         type="text"
@@ -64,7 +73,7 @@ function UserCreate() {
 
 
                 <div className='button'>
-                    <button type="button" className='btn btn-primary' onClick={onSaveAuthority}>등록</button>
+                    <button type="button" className='btn btn-primary' onClick={createUser}>등록</button>
                     <button type="button" className='btn btn-warning' onClick={goPrevPage}>취소</button>
                 </div>
 
