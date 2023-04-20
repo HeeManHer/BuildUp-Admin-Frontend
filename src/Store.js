@@ -1,4 +1,4 @@
-import rootReducer from "./moduels";
+import rootReducer from "./modules";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { legacy_createStore as createStore } from 'redux';
 

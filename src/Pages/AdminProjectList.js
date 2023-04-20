@@ -5,11 +5,21 @@ import '../css/admin.css';
 
 import { searchProject, setProjectList } from '../apis/ProjectListAPI';
 import Title from '../components/commons/Title';
+import { useNavigate } from 'react-router-dom';
+import { decodeJwt } from '../utils/tokenUtils';
 
 
 function AdminProjectList() {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const token = decodeJwt(window.localStorage.getItem("accessToken"));
+
+    if (token === null) {
+        alert("로그인을 해주세요");
+        navigate("/", { replace: true })
+    }
 
     const [currentPage, setCurrentPage] = useState(1);
     const [searchValue, setSearchValue] = useState('');

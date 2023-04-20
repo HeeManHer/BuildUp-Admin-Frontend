@@ -6,7 +6,7 @@ import '../../css/admin.css';
 
 import Title from '../commons/Title';
 import { getAuthType, getAuthority, getOneAuthority, updateAuthority } from '../../apis/AuthorityListAPI';
-import { UPDATE_AUTHORITY } from '../../moduels/authority';
+import { UPDATE_AUTHORITY } from '../../modules/authority';
 
 function AuthInfo() {
 
@@ -68,8 +68,8 @@ function AuthInfo() {
 
     const modifyAuthority = () => {
         if (authInfo.roleName === null || authInfo.roleName === '') return;
-        dispatch(updateAuthority(authInfo));        
-        navigate("/authority");
+        dispatch(updateAuthority(authInfo));
+        navigate("/manage/authorityList");
     }
 
     const prevPage = () => {
@@ -85,7 +85,7 @@ function AuthInfo() {
             }
         }
         );
-        navigate("/authority");
+        navigate("/manage/authorityList");
     }
 
     console.log(authInfo);

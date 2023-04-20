@@ -75,12 +75,12 @@ function AuthCreate() {
             return;
         }
         dispatch(registAuthority(authInfo));
-        navigate("/authority");
+        navigate("/manage/authorityList");
         window.location.reload();
     }
 
     const prevPage = () => {
-        navigate("/authority");
+        navigate("/manage/authorityList");
     }
 
     return (

@@ -7,6 +7,7 @@ import issueReducer from "./issue";
 import sprintReducer from "./sprint";
 import typeReducer from "./authType";
 import roleReducer from './authRole';
+import adminReducer from './admin';
 
 const rootReducer = combineReducers({
     userReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     backlogReducer,
     issueReducer,
     sprintReducer,
+    adminReducer
 });
 
 export default rootReducer;

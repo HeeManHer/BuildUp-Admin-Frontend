@@ -6,12 +6,22 @@ import '../css/admin.css';
 import { getAuthority, deleteAuthorityList, getAuthType, getOneAuthority, addNewAuthType, deleteAuthType } from '../apis/AuthorityListAPI';
 import Title from '../components/commons/Title';
 import { useNavigate } from 'react-router-dom';
+import { decodeJwt } from '../utils/tokenUtils';
 
 
 function AdminAuthorityList() {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const token = decodeJwt(window.localStorage.getItem("accessToken"));
+
+    if (token === null) {
+        alert("로그인을 해주세요");
+        navigate("/", { replace: true })
+    }
+
+
 
     const [deleteAuthority, setDeleteAuthority] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);

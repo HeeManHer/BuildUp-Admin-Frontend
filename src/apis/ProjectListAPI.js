@@ -1,4 +1,4 @@
-import { GET_PROJECT, SEARCH_PROJECT } from "../moduels/project";
+import { GET_PROJECT, SEARCH_PROJECT } from "../modules/project";
 
 export function setProjectList() {
 
