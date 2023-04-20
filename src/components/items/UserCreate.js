@@ -10,10 +10,9 @@ import Title from '../commons/Title';
 function UserCreate() {
 
     const [userInfo, setUserInfo] = useState({
-        name: '좀비',
-        no: '777777',
-        password: '7777',
-        email: 'ZOMBI@WARMMINGUP.COM',
+        name: '',
+        no: '',
+        email: '',
         authority: ''
     });
 
@@ -22,11 +21,13 @@ function UserCreate() {
 
     const createUser = () => {
         dispatch(registUser(userInfo));
-        navigate("/userlist");
+        navigate("/manage/userList");
+        window.location.reload();
     }
 
     const goPrevPage = () => {
-        navigate("/userlist");
+        navigate("/manage/userList");
+        window.location.reload();
     }
 
     return (
@@ -52,13 +53,13 @@ function UserCreate() {
                     />
                     <br />
 
-                    <label>비밀번호 : </label>
+                    {/* <label>비밀번호 : </label>
                     <input
                         type="text"
                         value={userInfo.password}
                         onChange={e => setUserInfo({ ...userInfo, password: e.target.value })}
                     />
-                    <br />
+                    <br /> */}
 
                     <label>이메일 : </label>
                     <input

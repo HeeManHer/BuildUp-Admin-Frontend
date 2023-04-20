@@ -9,7 +9,7 @@ function SideBar() {
         <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             {/* Sidebar - Brand */}
-            <a className="sidebar-brand d-flex align-items-center justify-content-center">
+            <a className="sidebar-brand d-flex align-items-center justify-content-center" onClick={() => navigate("/")}>
                 <div className="sidebar-brand-icon rotate-n-15">
                     <i className="fas fa-laugh-wink" />
                 </div>
@@ -22,7 +22,7 @@ function SideBar() {
 
             {/* 대시보드*/}
             <li className="nav-item">
-                <a className="nav-link" onClick={() => navigate("/")}>
+                <a className="nav-link" onClick={() => navigate("/manage")}>
                     <i className="fas fa-fw fa-cog"></i>
                     <span>대시보드</span>
                 </a>
@@ -30,7 +30,7 @@ function SideBar() {
 
             {/* 프로젝트 관리*/}
             <li className="nav-item">
-                <a className="nav-link" onClick={() => navigate("/projectlist")}>
+                <a className="nav-link" onClick={() => navigate("/manage/projectList")}>
                     <i className="fas fa-fw fa-wrench"></i>
                     <span>프로젝트 관리</span>
                 </a>
@@ -38,7 +38,7 @@ function SideBar() {
 
             {/* 사원 관리 */}
             <li className="nav-item">
-                <a className="nav-link" onClick={() => navigate("/userlist")}>
+                <a className="nav-link" onClick={() => navigate("/manage/userList")}>
                     <i className="fas fa-fw fa-folder"></i>
                     <span>사원 관리</span>
                 </a>
@@ -46,7 +46,7 @@ function SideBar() {
 
             {/* 권한 관리 */}
             <li className="nav-item">
-                <a className="nav-link" onClick={() => navigate("/authority")}>
+                <a className="nav-link" onClick={() => navigate("/manage/authorityList")}>
                     <i className="fas fa-fw fa-chart-area"></i>
                     <span>권한 관리</span>
                 </a>

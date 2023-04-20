@@ -1,4 +1,4 @@
-import { GET_USER_LIST, SEARCH_USER, GET_USER_DETAIL } from "../moduels/user";
+import { GET_USER_LIST, SEARCH_USER, GET_USER_DETAIL } from "../modules/user";
 
 
 export function getUserList(pageNo, search) {

@@ -1,8 +1,8 @@
-import { GET_DASH_PROJECT } from "../moduels/project";
-import { GET_DASH_ROLE } from "../moduels/authRole";
-import { GET_DASH_SPRINT } from "../moduels/sprint";
-import { GET_DASH_BACKLOG } from "../moduels/backlog";
-import { GET_DASH_ISSUE } from "../moduels/issue";
+import { GET_DASH_PROJECT } from "../modules/project";
+import { GET_DASH_ROLE } from "../modules/authRole";
+import { GET_DASH_SPRINT } from "../modules/sprint";
+import { GET_DASH_BACKLOG } from "../modules/backlog";
+import { GET_DASH_ISSUE } from "../modules/issue";
 
 export function getDashBacklog() {
     const url = 'http://localhost:8888/api/v1/dash-backlog';

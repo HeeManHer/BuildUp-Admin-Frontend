@@ -6,11 +6,19 @@ import '../css/admin.css';
 
 import { getUserList, deleteUserList, searchUserList } from '../apis/UserListAPI';
 import Title from '../components/commons/Title';
+import { decodeJwt } from '../utils/tokenUtils';
 
 function AdminUserList() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const token = decodeJwt(window.localStorage.getItem("accessToken"));
+
+    if (token === null) {
+        alert("로그인을 해주세요");
+        navigate("/", { replace: true });
+    }
 
     const [deleteUser, setDeleteUser] = useState([]);
     const [searchValue, setSearchValue] = useState('');

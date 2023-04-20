@@ -1,5 +1,5 @@
-import { GET_AUTHORITY, UPDATE_AUTHORITY } from "../moduels/authority";
-import { GET_AUTH_TYPE } from "../moduels/authType";
+import { GET_AUTHORITY, UPDATE_AUTHORITY } from "../modules/authority";
+import { GET_AUTH_TYPE } from "../modules/authType";
 
 export function getAuthority(pageNo) {
 
