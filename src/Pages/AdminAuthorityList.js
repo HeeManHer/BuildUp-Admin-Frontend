@@ -21,8 +21,6 @@ function AdminAuthorityList() {
         navigate("/", { replace: true })
     }
 
-
-
     const [deleteAuthority, setDeleteAuthority] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -92,42 +90,69 @@ function AdminAuthorityList() {
 
         setDeleteAuthority([]);
     }
-    const [authTypeName, setNewTypeName] = useState('');
+    const [authTypeName, setAuthTypeName] = useState('');
     const [ready, setReady] = useState(false);
 
     const addAuthType = () => {
-        setReady(!ready);
-        if (ready && (authTypeName !== null || authTypeName !== '')) {
+        if (authTypeName !== '') {
             dispatch(addNewAuthType(authTypeName));
             window.location.reload();
         }
     }
 
     const removeAuthType = () => {
-        setReady(!ready);
-        if (ready && authTypeName) {
-            deleteAuthType(authTypeName);
-            window.location.reload();
+        deleteAuthType(deleteType);
+    }
+
+    const [deleteType, setDeleteType] = useState([]);
+
+    const checkType = (e) => {
+        if (e.target.checked) {
+            setDeleteType([...deleteType, e.target.name]);
+        } else {
+            setDeleteType(deleteType.filter(type => type !== e.target.name))
         }
     }
 
     return (
         authority === undefined ?
             <h1>Loading...</h1> :
-            <div className="container-fluid">
+            <div className="container-fluid height-1000">
 
                 <Title title={'권한 관리'} />
 
                 <div className="admin">
-                    <div className='button'>
-                        <button type="button" className='btn btn-primary' onClick={() => navigate('./create')}>새 권한 등록</button>
-                        <button type="button" className='btn btn-danger' onClick={onClickDeleteBtn}>권한 삭제</button>
-                    </div>
-                    <div className='button'>
-                        <button type="button" className='btn btn-primary' onClick={addAuthType}>새 권한타입 추가</button>
-                        <button type="button" className='btn btn-danger' onClick={removeAuthType}>권한 타입 삭제</button>
-                        <br />
-                        {ready ? <input type="text" value={authTypeName} onChange={e => setNewTypeName(e.target.value)} /> : <></>}
+                    <div className='buttonList'>
+                        <div className='button'>
+                            <button type="button" className='btn btn-primary' onClick={() => navigate('./create')}>새 권한 등록</button>
+                            <button type="button" className='btn btn-danger' onClick={onClickDeleteBtn}>권한 삭제</button>
+                        </div>
+                        <div >
+                            <div className='button'>
+                                <button type="button" className='btn btn-primary' onClick={() => setReady(true)}>새 권한타입 추가</button>
+                                <button type="button" className='btn btn-danger' onClick={removeAuthType}>권한 타입 삭제</button>
+                                &nbsp;
+                                {ready &&
+                                    <>
+                                        <input type="text" placeholder='새로운 권한 이름' onChange={e => setAuthTypeName(e.target.value)} />
+                                        <button className='btn-sm btn-primary' onClick={addAuthType}>추가</button>
+                                        <button className='btn-sm btn-warning' onClick={() => setReady(false)}>취소</button>
+                                    </>
+                                }
+                            </div>
+                            <div className='typeList'>
+                                {/* {deleteType ? */}
+                                {
+                                    authType.map(type => (
+                                        <div>
+                                            <input type="checkbox" name={type.typeName} id={type.typeNo} onChange={checkType} />
+                                            <label htmlFor={type.typeNo}>{type.typeName}</label>
+                                        </div>
+                                    ))
+                                }
+                                {/* : <></>} */}
+                            </div>
+                        </div>
                     </div>
 
                     <table className="admin-table" width="90%">
@@ -140,17 +165,17 @@ function AdminAuthorityList() {
                             </tr>
                         </thead>
                         <tbody>
-                            {authority.map(auth => (
+                            {authority.map((auth) => (
                                 <>
                                     <tr key={auth.roleNo}>
                                         <td rowSpan={authType.length + 1}>
-                                            <input
+                                            {auth.roleNo > 2 && <input
                                                 type="checkbox"
                                                 name="delete"
                                                 id={auth.roleNo}
                                                 value={auth.roleNo}
                                                 onClick={e => onDeleteAuthorityChecked(e.target.value, e.target.checked)}
-                                            />
+                                            />}
                                         </td>
                                         <td rowSpan={authType.length + 1} onClick={() => goDetailPage(auth.roleNo)}>{auth.roleName}</td>
                                     </tr>
@@ -170,6 +195,7 @@ function AdminAuthorityList() {
                                             )}
                                         </tr>
                                     ))}
+                                    <br />
                                 </>
                             ))}
 

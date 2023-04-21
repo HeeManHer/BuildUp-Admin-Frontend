@@ -133,16 +133,19 @@ export function addNewAuthType(typeName) {
     }
 }
 
-export async function deleteAuthType(typeName) {
+export async function deleteAuthType(type) {
+    for (const index in type) {
+        console.log(type[index])
+        const url = "http://localhost:8888/api/v1/manage-auths/types/" + type[index];
 
-    const url = "http://localhost:8888/api/v1/manage-auths/types/" + typeName;
+        await fetch(url, {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json",
+                "Accept": "*/*"
+            }
+        });
+    }
 
-    await fetch(url, {
-        method: "DELETE",
-        headers: {
-            "content-type": "application/json",
-            "Accept": "*/*"
-        }
-    });
-
+    window.location.reload();
 }

@@ -11,7 +11,7 @@ function AdminDashBoard() {
 
     if (token === null) {
         alert("로그인을 해주세요");
-        navigate("/", { replace: true })
+        navigate("/");
     }
 
     return (
