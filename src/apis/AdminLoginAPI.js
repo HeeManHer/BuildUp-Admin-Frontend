@@ -1,28 +1,4 @@
-import { GET_EMPLOYEE, POST_LOGIN } from '../modules/admin';
-
-export const getAdminInfoAPI = ({employeeNo}) => {
-    const requestURL = `http://localhost:8888/api/v1/auth/login/${employeeNo}`;
-
-    return async (dispatch, getState) => {
-
-        // 클라이언트 fetch mode : no-cors 사용시 application/json 방식으로 요청이 불가능
-        // 서버에서 cors 허용을 해주어야 함
-        const result = await fetch(requestURL, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "*/*",
-                "Authorization": "Bearer " + window.localStorage.getItem("accessToken") 
-            }
-        })
-        .then(response => response.json());
-
-        console.log('[EmployeeAPICalls] callGetEmployeeAPI RESULT : ', result);
-
-        dispatch({ type: GET_EMPLOYEE,  payload: result });
-        
-    };
-}
+import { POST_LOGIN } from '../modules/admin';
 
 export const postLoginAPI = (form) => {
     const requestURL = `http://localhost:8888/api/v1/manage-login`;

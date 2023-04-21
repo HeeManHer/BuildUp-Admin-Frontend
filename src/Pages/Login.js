@@ -7,10 +7,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
     postLoginAPI, registAdminAPI
 } from '../apis/AdminLoginAPI'
+import { decodeJwt } from '../utils/tokenUtils';
 
 function Login() {
 
     const navigate = useNavigate();
+
+    const token = decodeJwt(window.localStorage.getItem("accessToken"));
+
+    if (token !== null) {
+        navigate('/manage');
+    }
 
     // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
     const dispatch = useDispatch();
@@ -43,13 +50,6 @@ function Login() {
     const onClickLoginHandler = () => {
         dispatch(
             postLoginAPI(form),
-            navigate("/")
-        );
-    }
-
-    const onClickRegistHandler = () => {
-        dispatch(
-            registAdminAPI(form),
             navigate("/")
         );
     }
@@ -91,19 +91,6 @@ function Login() {
                             <span></span>
                             <span></span>
                             로그인
-                        </a>
-                    </button>
-                    <button
-                        className='btn1'
-                        type='button'
-                        onClick={onClickRegistHandler}
-                    >
-                        <a>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            등록
                         </a>
                     </button>
                 </form>

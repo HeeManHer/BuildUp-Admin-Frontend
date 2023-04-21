@@ -13,14 +13,29 @@
     margin-top: 15px;
 }
 
+.buttonList {
+    width: 62.5%;
+    /* border: 1px solid #000; */
+    display: flex;
+    justify-content: space-between;
+}
+
 .button {
-    width: 50%;
+    /* width: 50%; */
     display: flex;
     align-items: flex-start;
 }
 
-.button>* {
+.button>*,
+.typeList>* {
     margin-left: 15px;
+    margin-right: 15px;
+}
+
+.typeList {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
 }
 
 .admin-table>tbody>*>* {
@@ -46,4 +61,8 @@
     border-radius: 25px;
     background-color: white;
     font-weight: bold;
+}
+
+.height-1000 {
+    height: 1000px;
 }
