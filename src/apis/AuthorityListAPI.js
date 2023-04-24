@@ -3,7 +3,7 @@ import { GET_AUTH_TYPE } from "../modules/authType";
 
 export function getAuthority(pageNo) {
 
-    const url = 'http://localhost:8888/api/v1/manage-auths?page=' + pageNo;
+    const url = `http://localhost:8888/api/v1/manage-auths?page=${pageNo}`;
 
     return async (dispatch, getState) => {
 
@@ -88,18 +88,7 @@ export function updateAuthority(authority) {
             },
             body: JSON.stringify(authority)
         });
-        dispatch({
-            type: UPDATE_AUTHORITY, payload:
-            {
-                data: [{
-                    roleNo: '',
-                    roleName: '',
-                    type: []
-                }],
-                pageInfo: {}
-            }
-        }
-        );
+        window.location.reload();
     }
 }
 
@@ -135,8 +124,7 @@ export function addNewAuthType(typeName) {
 
 export async function deleteAuthType(type) {
     for (const index in type) {
-        console.log(type[index])
-        const url = "http://localhost:8888/api/v1/manage-auths/types/" + type[index];
+        const url = `http://localhost:8888/api/v1/manage-auths/${authNo}`;
 
         await fetch(url, {
             method: "DELETE",

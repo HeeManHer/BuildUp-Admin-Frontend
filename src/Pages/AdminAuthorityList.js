@@ -143,9 +143,9 @@ function AdminAuthorityList() {
                             <div className='typeList'>
                                 {/* {deleteType ? */}
                                 {
-                                    authType.map(type => (
+                                    authType.map((type, index) => (
                                         <div>
-                                            <input type="checkbox" name={type.typeName} id={type.typeNo} onChange={checkType} />
+                                            {index > 3 && <input type="checkbox" name={type.typeName} id={type.typeNo} onChange={checkType} />}
                                             <label htmlFor={type.typeNo}>{type.typeName}</label>
                                         </div>
                                     ))
