@@ -43,7 +43,7 @@ function UserInfo() {
         dispatch(modifyUserInfo(user, userNo));
         navigate("../");
     }
-
+    console.log(user);
     return (
         <div className="container-fluid">
 

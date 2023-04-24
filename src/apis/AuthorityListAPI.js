@@ -105,35 +105,3 @@ export async function deleteAuthorityList(authNo) {
     });
 
 }
-
-export function addNewAuthType(typeName) {
-
-    const url = 'http://localhost:8888/api/v1/manage-auths/types';
-
-    return async function (dispatch, getState) {
-        const result = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "*/*"
-            },
-            body: JSON.stringify({ typeName })
-        });
-    }
-}
-
-export async function deleteAuthType(type) {
-    for (const index in type) {
-        const url = `http://localhost:8888/api/v1/manage-auths/${type[index]}`;
-
-        await fetch(url, {
-            method: "DELETE",
-            headers: {
-                "content-type": "application/json",
-                "Accept": "*/*"
-            }
-        });
-    }
-
-    window.location.reload();
-}

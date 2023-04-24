@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { decodeJwt } from '../../utils/tokenUtils';
 
 function SideBar() {
@@ -9,7 +9,7 @@ function SideBar() {
 
     if (token === null) {
         alert("로그인을 해주세요");
-        navigate("/", { replace: true })
+        return <Navigate to="/auth/login" />;
     }
 
 
