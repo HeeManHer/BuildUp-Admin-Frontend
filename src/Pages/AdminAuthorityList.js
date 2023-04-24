@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import '../css/admin.css';
 
-import { getAuthority, deleteAuthorityList, getAuthType, getOneAuthority, addNewAuthType, deleteAuthType } from '../apis/AuthorityListAPI';
+import { getAuthority, deleteAuthorityList, getAuthType, getOneAuthority } from '../apis/AuthorityListAPI';
 import Title from '../components/commons/Title';
 import { useNavigate } from 'react-router-dom';
 
