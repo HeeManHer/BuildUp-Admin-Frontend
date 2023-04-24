@@ -9,9 +9,13 @@ import { getDashAuth } from '../../apis/DashboardAPI';
 
 function DashboardChart() {
 
+    const dispatch = useDispatch();
+
     const authRole = useSelector(state => state.roleReducer);
 
-    const dispatch = useDispatch();
+    const userAuthority = authRole.map(authority => authority.name);
+    const authorityCnt = authRole.map(authority => authority.count);
+
 
     useEffect(
         () => {
@@ -20,8 +24,6 @@ function DashboardChart() {
         []
     );
 
-    const userAuthority = authRole.map(authority => authority.name);
-    const authorityCnt = authRole.map(authority => authority.count);
 
     const data = {
         labels: userAuthority,

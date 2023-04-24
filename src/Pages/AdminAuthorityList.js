@@ -6,7 +6,6 @@ import '../css/admin.css';
 import { getAuthority, deleteAuthorityList, getAuthType, getOneAuthority, addNewAuthType, deleteAuthType } from '../apis/AuthorityListAPI';
 import Title from '../components/commons/Title';
 import { useNavigate } from 'react-router-dom';
-import { decodeJwt } from '../utils/tokenUtils';
 
 
 function AdminAuthorityList() {
@@ -14,23 +13,14 @@ function AdminAuthorityList() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const token = decodeJwt(window.localStorage.getItem("accessToken"));
-
-    if (token === null) {
-        alert("로그인을 해주세요");
-        navigate("/", { replace: true })
-    }
-
     const [deleteAuthority, setDeleteAuthority] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
 
-    const authorityReducer = useSelector(state => state.authorityReducer);
     const authType = useSelector(state => state.typeReducer);
+    const authorityReducer = useSelector(state => state.authorityReducer);
 
     const authority = authorityReducer.data;
     const pageInfo = authorityReducer.pageInfo;
-
-    // console.log(authorityReducer);
 
     const pageAmount = [];
     if (pageInfo) {
@@ -45,6 +35,7 @@ function AdminAuthorityList() {
         },
         []
     )
+
     useEffect(
         () => {
             dispatch(getAuthority(currentPage));
@@ -90,29 +81,6 @@ function AdminAuthorityList() {
 
         setDeleteAuthority([]);
     }
-    const [authTypeName, setAuthTypeName] = useState('');
-    const [ready, setReady] = useState(false);
-
-    const addAuthType = () => {
-        if (authTypeName !== '') {
-            dispatch(addNewAuthType(authTypeName));
-            window.location.reload();
-        }
-    }
-
-    const removeAuthType = () => {
-        deleteAuthType(deleteType);
-    }
-
-    const [deleteType, setDeleteType] = useState([]);
-
-    const checkType = (e) => {
-        if (e.target.checked) {
-            setDeleteType([...deleteType, e.target.name]);
-        } else {
-            setDeleteType(deleteType.filter(type => type !== e.target.name))
-        }
-    }
 
     return (
         authority === undefined ?
@@ -126,32 +94,6 @@ function AdminAuthorityList() {
                         <div className='button'>
                             <button type="button" className='btn btn-primary' onClick={() => navigate('./create')}>새 권한 등록</button>
                             <button type="button" className='btn btn-danger' onClick={onClickDeleteBtn}>권한 삭제</button>
-                        </div>
-                        <div >
-                            <div className='button'>
-                                <button type="button" className='btn btn-primary' onClick={() => setReady(true)}>새 권한타입 추가</button>
-                                <button type="button" className='btn btn-danger' onClick={removeAuthType}>권한 타입 삭제</button>
-                                &nbsp;
-                                {ready &&
-                                    <>
-                                        <input type="text" placeholder='새로운 권한 이름' onChange={e => setAuthTypeName(e.target.value)} />
-                                        <button className='btn-sm btn-primary' onClick={addAuthType}>추가</button>
-                                        <button className='btn-sm btn-warning' onClick={() => setReady(false)}>취소</button>
-                                    </>
-                                }
-                            </div>
-                            <div className='typeList'>
-                                {/* {deleteType ? */}
-                                {
-                                    authType.map((type, index) => (
-                                        <div>
-                                            {index > 3 && <input type="checkbox" name={type.typeName} id={type.typeNo} onChange={checkType} />}
-                                            <label htmlFor={type.typeNo}>{type.typeName}</label>
-                                        </div>
-                                    ))
-                                }
-                                {/* : <></>} */}
-                            </div>
                         </div>
                     </div>
 

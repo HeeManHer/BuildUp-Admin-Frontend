@@ -109,7 +109,7 @@ export async function deleteAuthorityList(authNo) {
 export function addNewAuthType(typeName) {
 
     const url = 'http://localhost:8888/api/v1/manage-auths/types';
-    console.log({ typeName })
+
     return async function (dispatch, getState) {
         const result = await fetch(url, {
             method: "POST",
@@ -124,7 +124,7 @@ export function addNewAuthType(typeName) {
 
 export async function deleteAuthType(type) {
     for (const index in type) {
-        const url = `http://localhost:8888/api/v1/manage-auths/${authNo}`;
+        const url = `http://localhost:8888/api/v1/manage-auths/${type[index]}`;
 
         await fetch(url, {
             method: "DELETE",

@@ -11,6 +11,7 @@ import { decodeJwt } from '../utils/tokenUtils';
 
 function Login() {
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const token = decodeJwt(window.localStorage.getItem("accessToken"));
@@ -20,7 +21,6 @@ function Login() {
     }
 
     // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
-    const dispatch = useDispatch();
     const loginAdmin = useSelector(state => state.adminReducer);  // API 요청하여 가져온 loginMember 정보
 
     // 폼 데이터 한번에 변경 및 State에 저장    
@@ -29,15 +29,15 @@ function Login() {
         adminPwd: ''
     });
 
-
     useEffect(
         () => {
             if (loginAdmin.status === 200) {
-                console.log("[Login] Login SUCCESS {}", loginAdmin);
+                // console.log("[Login] Login SUCCESS {}", loginAdmin);
                 navigate("/manage", { replace: true });
             }
         },
-        [loginAdmin]);
+        [loginAdmin]
+    );
 
     const onChangeHandler = (e) => {
         setForm({
