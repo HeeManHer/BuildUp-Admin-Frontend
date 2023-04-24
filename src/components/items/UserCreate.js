@@ -10,9 +10,9 @@ import Title from '../commons/Title';
 function UserCreate() {
 
     const [userInfo, setUserInfo] = useState({
-        name: '',
-        no: '',
-        email: '',
+        name: '노비',
+        no: '100000000',
+        email: 'noby@warming.com',
         authority: ''
     });
 
@@ -21,13 +21,11 @@ function UserCreate() {
 
     const createUser = () => {
         dispatch(registUser(userInfo));
-        navigate("/manage/userList");
-        window.location.reload();
+        goPrevPage();
     }
 
     const goPrevPage = () => {
         navigate("/manage/userList");
-        window.location.reload();
     }
 
     return (

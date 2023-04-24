@@ -10,7 +10,7 @@ function Header() {
     const navigate = useNavigate();
 
     const token = decodeJwt(window.localStorage.getItem("accessToken"));
-
+    console.log(token);
     const onClickLogoutHandler = () => {
         window.localStorage.removeItem('accessToken');
         //로그아웃

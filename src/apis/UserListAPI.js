@@ -11,7 +11,8 @@ export function getUserList(pageNo, search) {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "*/*"
+                "Accept": "*/*",
+                // "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
             }
         }).then(res => res.json())
 
@@ -63,10 +64,13 @@ export function registUser(user) {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "*/*"
+                "Accept": "*/*",
+                // "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
             },
             body: JSON.stringify(user)
         })
+
+        window.location.reload();
     }
 }
 
@@ -100,5 +104,6 @@ export function modifyUserInfo(user, userNo) {
             },
             body: JSON.stringify(user)
         })
+        window.location.reload();
     }
 }
