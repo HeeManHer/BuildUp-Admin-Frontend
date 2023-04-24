@@ -1,8 +1,17 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { decodeJwt } from '../../utils/tokenUtils';
 
 function SideBar() {
 
     const navigate = useNavigate();
+
+    const token = decodeJwt(window.localStorage.getItem("accessToken"));
+
+    if (token === null) {
+        alert("로그인을 해주세요");
+        navigate("/", { replace: true })
+    }
+
 
     return (
         // Sidebar
