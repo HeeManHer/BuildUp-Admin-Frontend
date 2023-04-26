@@ -76,9 +76,9 @@ function UserInfo() {
                     <br />
                     <label>프로젝트 생성 권한 : </label>
                     <input type="checkbox"
-                        value={user.authority ? 'PM' : 'null'}
-                        checked={user.authority === 'PM'}
-                        onChange={e => setUser({ ...user, authority: e.target.checked ? 'PM' : 'null' })}
+                        // value={user.authority}
+                        checked={user.authority === 'ROLE_PM'}
+                        onChange={e => setUser({ ...user, authority: e.target.checked ? 'ROLE_PM' : 'ROLE_USER' })}
                     />
                 </form>
 

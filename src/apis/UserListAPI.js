@@ -3,7 +3,7 @@ import { GET_USER_LIST, SEARCH_USER, GET_USER_DETAIL } from "../modules/user";
 
 export function getUserList(pageNo, search) {
 
-    const requestUrl = `http://localhost:8888/api/v1/manage-users?page=${pageNo}&search=${search}`;
+    const requestUrl = `http://43.201.211.175:8888/api/v1/manage-users?page=${pageNo}&search=${search}`;
 
     return async function (dispatch, getState) {
 
@@ -22,7 +22,7 @@ export function getUserList(pageNo, search) {
 
 export function getUserInfo(userNo) {
 
-    const requestUrl = "http://localhost:8888/api/v1/manage-users/" + userNo;
+    const requestUrl = "http://43.201.211.175:8888/api/v1/manage-users/" + userNo;
 
     return async function (dispatch, getState) {
 
@@ -39,7 +39,7 @@ export function getUserInfo(userNo) {
 }
 
 export function searchUserList(searchValue) {
-    const url = "http://localhost:8888/api/v1/manage-users?search=" + searchValue;
+    const url = "http://43.201.211.175:8888/api/v1/manage-users?search=" + searchValue;
 
     return async function (dispatch, getState) {
         const result = await fetch(url, {
@@ -56,7 +56,7 @@ export function searchUserList(searchValue) {
 
 export function registUser(user) {
 
-    const requestUrl = "http://localhost:8888/api/v1/manage-users";
+    const requestUrl = "http://43.201.211.175:8888/api/v1/manage-users";
 
     return async function (dispatch, getState) {
 
@@ -76,7 +76,7 @@ export function registUser(user) {
 
 export async function deleteUserList(user) {
     for (const userNo in user) {
-        const url = "http://localhost:8888/api/v1/manage-users/" + user[userNo];
+        const url = "http://43.201.211.175:8888/api/v1/manage-users/" + user[userNo];
 
         await fetch(url, {
             method: "DELETE",
@@ -92,7 +92,7 @@ export async function deleteUserList(user) {
 
 export function modifyUserInfo(user, userNo) {
 
-    const requestUrl = "http://localhost:8888/api/v1/manage-users/" + userNo;
+    const requestUrl = "http://43.201.211.175:8888/api/v1/manage-users/" + userNo;
 
     return async function (dispatch, getState) {
 

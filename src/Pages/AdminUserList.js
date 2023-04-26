@@ -112,7 +112,7 @@ function AdminUserList() {
                                 <td onClick={() => navigate("./" + user.no)}>{user.no}</td>
                                 <td onClick={() => navigate("./" + user.no)}>{user.email}</td>
                                 <td onClick={() => navigate("./" + user.no)}>
-                                    <input type="checkbox" defaultChecked={user.authority == null ? false : true} />
+                                    <input type="checkbox" defaultChecked={user.authority == 'ROLE_PM'} />
                                 </td>
                             </tr>
                         )}

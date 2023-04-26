@@ -49,15 +49,7 @@ function UserCreate() {
                         value={userInfo.no}
                         onChange={e => setUserInfo({ ...userInfo, no: e.target.value })}
                     />
-                    <br />
-
-                    {/* <label>비밀번호 : </label>
-                    <input
-                        type="text"
-                        value={userInfo.password}
-                        onChange={e => setUserInfo({ ...userInfo, password: e.target.value })}
-                    />
-                    <br /> */}
+                    <br />                   
 
                     <label>이메일 : </label>
                     <input

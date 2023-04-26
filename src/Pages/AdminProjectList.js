@@ -83,7 +83,7 @@ function AdminProjectList() {
                                         <td>{project.no}</td>
                                         <td>{project.title}</td>
                                         <td>{project.manager || '미정'}</td>
-                                        <td>{project.startDate}</td>
+                                        <td>{new Intl.DateTimeFormat('kr').format(new Date(project.startDate))}</td>
                                     </tr>
                                 )
                             )

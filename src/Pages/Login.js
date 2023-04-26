@@ -25,8 +25,8 @@ function Login() {
 
     // 폼 데이터 한번에 변경 및 State에 저장    
     const [form, setForm] = useState({
-        adminId: '',
-        adminPwd: ''
+        employeeNo: '',
+        employeePassword: ''
     });
 
     useEffect(
@@ -40,11 +40,27 @@ function Login() {
     );
 
     const onChangeHandler = (e) => {
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value
-        });
+
+        if (e.target.name === 'employeeNo') {
+            if (e.target.value === 'admin') {
+                setForm({
+                    ...form,
+                    employeeNo: 99999999
+                });
+            } else {
+                setForm({
+                    ...form,
+                    employeeNo: 11111111
+                });
+            }
+        } else {
+            setForm({
+                ...form,
+                employeePassword: e.target.value
+            });
+        }
     };
+    console.log(form)
 
     // 로그인 버튼 클릭시 디스패처 실행 및 메인 페이지로 이동
     const onClickLoginHandler = () => {
@@ -63,7 +79,7 @@ function Login() {
                     <div className="user-box">
                         <input
                             type="text"
-                            name="adminId"
+                            name="employeeNo"
                             placeholder="관리자 아이디를 입력하세요."
                             onChange={onChangeHandler}
 
@@ -73,7 +89,7 @@ function Login() {
                     <div className="user-box">
                         <input
                             type="password"
-                            name="adminPwd"
+                            name="employeePassword"
                             placeholder='관리자 비밀번호를 입력하세요.'
                             onChange={onChangeHandler}
 

@@ -5,7 +5,7 @@ import { GET_DASH_BACKLOG } from "../modules/backlog";
 import { GET_DASH_ISSUE } from "../modules/issue";
 
 export function getDashBacklog() {
-    const url = 'http://localhost:8888/api/v1/dash-backlog';
+    const url = 'http://43.201.211.175:8888/api/v1/dash-backlog';
 
     return async function (dispatch, getState) {
 
@@ -23,7 +23,7 @@ export function getDashBacklog() {
 }
 
 export function getDashIssue() {
-    const url = 'http://localhost:8888/api/v1/dash-issue';
+    const url = 'http://43.201.211.175:8888/api/v1/dash-issue';
 
     return async function (dispatch, getState) {
 
@@ -41,7 +41,7 @@ export function getDashIssue() {
 }
 
 export function getDashSprint() {
-    const url = 'http://localhost:8888/api/v1/dash-sprint';
+    const url = 'http://43.201.211.175:8888/api/v1/dash-sprint';
 
     return async function (dispatch, getState) {
 
@@ -59,7 +59,7 @@ export function getDashSprint() {
 }
 
 export function getDashDoardProject() {
-    const url = 'http://localhost:8888/api/v1/dash-project';
+    const url = 'http://43.201.211.175:8888/api/v1/dash-project';
 
     return async function (dispatch, getState) {
 
@@ -77,7 +77,7 @@ export function getDashDoardProject() {
 }
 
 export function getDashAuth() {
-    const url = 'http://localhost:8888/api/v1/dash-auth';
+    const url = 'http://43.201.211.175:8888/api/v1/dash-auth';
 
     return async function (dispatch, getState) {
 

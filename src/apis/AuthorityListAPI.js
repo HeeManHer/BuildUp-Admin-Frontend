@@ -3,7 +3,7 @@ import { GET_AUTH_TYPE } from "../modules/authType";
 
 export function getAuthority(pageNo) {
 
-    const url = `http://localhost:8888/api/v1/manage-auths?page=${pageNo}`;
+    const url = `http://43.201.211.175:8888/api/v1/manage-auths?page=${pageNo}`;
 
     return async (dispatch, getState) => {
 
@@ -21,7 +21,7 @@ export function getAuthority(pageNo) {
 
 export function getOneAuthority(authNo) {
 
-    const url = `http://localhost:8888/api/v1/manage-auths/${authNo}`;
+    const url = `http://43.201.211.175:8888/api/v1/manage-auths/${authNo}`;
 
     return async (dispatch, getState) => {
 
@@ -40,7 +40,7 @@ export function getOneAuthority(authNo) {
 
 export function getAuthType() {
 
-    const url = 'http://localhost:8888/api/v1/manage-auths/types';
+    const url = 'http://43.201.211.175:8888/api/v1/manage-auths/types';
 
     return async (dispatch, getState) => {
 
@@ -61,7 +61,7 @@ export function getAuthType() {
 
 export function registAuthority(authority) {
 
-    const url = 'http://localhost:8888/api/v1/manage-auths';
+    const url = 'http://43.201.211.175:8888/api/v1/manage-auths';
 
     return async function (dispatch, getState) {
         const result = await fetch(url, {
@@ -77,7 +77,7 @@ export function registAuthority(authority) {
 
 export function updateAuthority(authority) {
 
-    const url = `http://localhost:8888/api/v1/manage-auths`;
+    const url = `http://43.201.211.175:8888/api/v1/manage-auths`;
 
     return async function (dispatch, getState) {
         await fetch(url, {
@@ -94,7 +94,7 @@ export function updateAuthority(authority) {
 
 export async function deleteAuthorityList(authNo) {
 
-    const url = "http://localhost:8888/api/v1/manage-auths/" + authNo;
+    const url = "http://43.201.211.175:8888/api/v1/manage-auths/" + authNo;
 
     await fetch(url, {
         method: "DELETE",

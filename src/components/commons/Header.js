@@ -10,7 +10,7 @@ function Header() {
     const navigate = useNavigate();
 
     const token = decodeJwt(window.localStorage.getItem("accessToken"));
-    console.log(token);
+
     const onClickLogoutHandler = () => {
         window.localStorage.removeItem('accessToken');
         //로그아웃
@@ -29,7 +29,7 @@ function Header() {
                 {/* 유저 정보 */}
                 <li className="nav-item dropdown no-arrow">
                     <a className="nav-link dropdown-toggle" >
-                        <span className="mr-2 d-none d-lg-inline text-gray-600">{token === null ? '로그인' : token.sub}</span>
+                        <span className="mr-2 d-none d-lg-inline text-gray-600">{token === null ? '로그인' : token.auth[0].substring(token.auth[0].indexOf('_') + 1)}</span>
                         <img className="img-profile rounded-circle" src={img}></img>
                     </a>
                     {/* <!-- Dropdown - User Information --> */}
