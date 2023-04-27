@@ -37,33 +37,33 @@ function AuthInfo() {
     )
 
     const checkState = e => {
-        console.log(1);
+        
         setAuthInfo({
             ...authInfo,
             type: authInfo.type.map(type => {
-                console.log(2);
+                
                 if (type.typeName === e.target.name) {
-                    console.log(3);
+                    
                     if (e.target.checked) {
-                        console.log(4);
+                       
                         return {
                             ...type,
                             state: [...type.state, e.target.value]
                         }
                     } else {
-                        console.log(5);
+                       
                         return {
                             ...type,
                             state: type.state.filter(state => state !== e.target.value)
                         }
                     }
                 } else {
-                    console.log(6);
+                   
                     return type
                 }
             })
         });
-        console.log(7);
+      
     }
 
     const modifyAuthority = () => {
@@ -88,7 +88,7 @@ function AuthInfo() {
         navigate("/manage/authorityList");
     }
 
-    console.log(authInfo);
+   
 
     return (
         authInfo === undefined ?

@@ -43,7 +43,6 @@ function UserInfo() {
         dispatch(modifyUserInfo(user, userNo));
         navigate("../");
     }
-    console.log(user);
     return (
         <div className="container-fluid">
 
@@ -76,7 +75,6 @@ function UserInfo() {
                     <br />
                     <label>프로젝트 생성 권한 : </label>
                     <input type="checkbox"
-                        // value={user.authority}
                         checked={user.authority === 'ROLE_PM'}
                         onChange={e => setUser({ ...user, authority: e.target.checked ? 'ROLE_PM' : 'ROLE_USER' })}
                     />

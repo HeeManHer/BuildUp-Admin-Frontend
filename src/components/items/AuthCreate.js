@@ -67,7 +67,6 @@ function AuthCreate() {
             })
         });
     }
-    console.log(authInfo);
 
     const createAuthority = () => {
         if (authInfo.roleName === null || authInfo.roleName === '') {

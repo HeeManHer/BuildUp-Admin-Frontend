@@ -10,10 +10,10 @@ import Title from '../commons/Title';
 function UserCreate() {
 
     const [userInfo, setUserInfo] = useState({
-        name: '노비',
-        no: '100000000',
-        email: 'noby@warming.com',
-        authority: ''
+        name: '',
+        no: '',
+        email: '',
+        authority: 'ROLE_USER'
     });
 
     const dispatch = useDispatch();
@@ -49,7 +49,7 @@ function UserCreate() {
                         value={userInfo.no}
                         onChange={e => setUserInfo({ ...userInfo, no: e.target.value })}
                     />
-                    <br />                   
+                    <br />
 
                     <label>이메일 : </label>
                     <input
@@ -59,7 +59,7 @@ function UserCreate() {
                     />
                     <br />
                     <label>프로젝트 생성 권한 : </label>
-                    <input type="checkbox" onChange={e => setUserInfo({ ...userInfo, authority: e.target.checked })} />
+                    <input type="checkbox" onChange={e => setUserInfo({ ...userInfo, authority: e.target.checked ? 'ROLE_PM' : 'ROLE_USER' })} />
                 </form>
 
 

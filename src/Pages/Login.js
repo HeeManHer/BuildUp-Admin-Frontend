@@ -32,7 +32,6 @@ function Login() {
     useEffect(
         () => {
             if (loginAdmin.status === 200) {
-                // console.log("[Login] Login SUCCESS {}", loginAdmin);
                 navigate("/manage", { replace: true });
             }
         },
@@ -60,7 +59,6 @@ function Login() {
             });
         }
     };
-    console.log(form)
 
     // 로그인 버튼 클릭시 디스패처 실행 및 메인 페이지로 이동
     const onClickLoginHandler = () => {
