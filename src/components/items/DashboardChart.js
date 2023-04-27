@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Chart from 'chart.js/auto';
-import { Pie } from 'react-chartjs-2';
+import { Bar, Pie } from 'react-chartjs-2';
 
 import { setUserList, getUserList } from '../../apis/UserListAPI';
 import { getDashAuth } from '../../apis/DashboardAPI';
@@ -29,7 +29,7 @@ function DashboardChart() {
         labels: userAuthority,
         datasets: [
             {
-                type: 'pie',
+                type: 'bar',
                 label: '사원 현황',
                 data: authorityCnt,
                 backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b'],
@@ -51,8 +51,10 @@ function DashboardChart() {
             displayColors: false,
             caretPadding: 10,
         },
-        legend: {
-            display: false
+        plugins: {
+            legend: {
+                display: false
+            }
         },
     };
 
@@ -66,7 +68,7 @@ function DashboardChart() {
 
                 <div className="card-body">
                     <div className="chart-pie pt-4 pb-2">
-                        <Pie type="line" data={data} options={option} />
+                        <Bar type="line" data={data} options={option} />
                     </div>
                 </div>
             </div>

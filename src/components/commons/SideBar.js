@@ -32,18 +32,18 @@ function SideBar() {
             {/* 대시보드*/}
             <li className="nav-item">
                 <a className="nav-link" onClick={() => navigate("/manage")}>
-                    <i className="fas fa-fw fa-cog"></i>
+                    <i className="fas fa-fw fa-chart-area"></i>
                     <span>대시보드</span>
                 </a>
             </li>
 
             {/* 프로젝트 관리*/}
-            <li className="nav-item">
+            {/* <li className="nav-item">
                 <a className="nav-link" onClick={() => navigate("/manage/projectList")}>
                     <i className="fas fa-fw fa-wrench"></i>
                     <span>프로젝트 관리</span>
                 </a>
-            </li>
+            </li> */}
 
             {/* 사원 관리 */}
             <li className="nav-item">
@@ -56,7 +56,7 @@ function SideBar() {
             {/* 권한 관리 */}
             <li className="nav-item">
                 <a className="nav-link" onClick={() => navigate("/manage/authorityList")}>
-                    <i className="fas fa-fw fa-chart-area"></i>
+                    <i className="fas fa-fw fa-cog"></i>
                     <span>권한 관리</span>
                 </a>
             </li>
